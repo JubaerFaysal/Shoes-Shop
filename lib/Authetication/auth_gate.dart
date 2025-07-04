@@ -1,0 +1,58 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:shoes_business/screens/Admin/admin_home.dart';
+import 'package:shoes_business/screens/Customers/customer_home.dart';
+import 'login_or_register.dart';
+
+class AuthGate extends StatelessWidget {
+  const AuthGate({super.key});
+
+  Future<Widget> getRedirectScreen(User user) async {
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    if (!doc.exists) {
+      return const LoginOrRegister(); // Fallback if user doc not found
+    }
+
+    final role = doc['role'];
+    if (role == 'admin') {
+      return const AdminHome();
+    } else {
+      return const CustomerHome();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          // Not logged in
+          if (!snapshot.hasData) {
+            return const LoginOrRegister();
+          }
+
+          // Logged in, check role
+          return FutureBuilder<Widget>(
+            future: getRedirectScreen(snapshot.data!),
+            builder: (context, roleSnapshot) {
+              if (roleSnapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (roleSnapshot.hasError) {
+                return Center(
+                    child: Text("Error loading role: ${roleSnapshot.error}"));
+              } else {
+                return roleSnapshot.data!;
+              }
+            },
+          );
+        },
+      ),
+    );
+  }
+}
