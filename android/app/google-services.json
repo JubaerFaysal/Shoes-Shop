@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068546138732",
+    "project_id": "shoes-business-6c6ec",
+    "storage_bucket": "shoes-business-6c6ec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068546138732:android:a6f28ff05bf4ec3a5b6e49",
+        "android_client_info": {
+          "package_name": "com.example.shoes_business"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzJ3wpg2u2em341EHdB8r5FlWoy0DfXas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
