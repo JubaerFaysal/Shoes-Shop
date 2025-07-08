@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shoes_business/Methods/cart.dart';
+import 'package:shoes_business/Methods/payment_method.dart';
 import 'package:shoes_business/components/my_button.dart';
 
 class CProductDetails extends StatelessWidget {
-  final DocumentSnapshot eachproduct;
+  final dynamic eachproduct;
   final String uniqueId;
   const CProductDetails({super.key, required this.eachproduct,required this.uniqueId});
 
@@ -185,10 +186,7 @@ class CProductDetails extends StatelessWidget {
                     child: MyButton(
                       text: "Buy Now",
                       onPressed: () {
-                        //TODO: Implement cart add logic
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Proceeding to buy")),
-                        );
+                        showCardPaymentDialog(context, eachproduct['price']);
                       },
                       icon: Icons.shopping_bag,
                       color: Colors.teal,
