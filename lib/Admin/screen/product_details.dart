@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shoes_business/components/delete_aleart.dart';
+import 'package:shoes_business/components/my_aleart_dialog.dart';
 import 'package:shoes_business/components/my_button.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -141,8 +145,189 @@ class ProductDetails extends StatelessWidget {
               ),
 
               const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          TextEditingController nameController =
+                              TextEditingController(text: eachproduct['name']);
+                          TextEditingController priceController =
+                              TextEditingController(text: eachproduct['price'].toString());
+                          TextEditingController stockController =
+                              TextEditingController(
+                                text: eachproduct['stock'].toString(),
+                              );
+                          TextEditingController brandController =
+                              TextEditingController(text: eachproduct['brand']);
+                          TextEditingController weightcontroller =
+                              TextEditingController(
+                                text: eachproduct['weight'],
+                              );
 
-              
+                          return AlertDialog(
+                            backgroundColor: const Color(0xFFE6F5F4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            title: Center(
+                              child: Text(
+                                "Update Product",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.teal[800],
+                                ),
+                              ),
+                            ),
+                            content: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _buildStyledTextField(
+                                    controller: nameController,
+                                    label: "Product Name",
+                                    // hint:
+                                    //     "Was: ${product['Product']}",
+                                    icon: Icons.edit,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  _buildStyledTextField(
+                                    controller: priceController,
+                                    label: "Price",
+                                    // hint:
+                                    //     "Was: ₹ ${product['Price']}",
+                                    icon: Icons.attach_money,
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  _buildStyledTextField(
+                                    controller: brandController,
+                                    label: "Brand",
+                                    // hint:
+                                    //     "Was: ₹ ${product['Brand']}",
+                                    icon: Icons.label_important,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  _buildStyledTextField(
+                                    controller: weightcontroller,
+                                    label: "Weight",
+                                    // hint:
+                                    //     "Was: ₹ ${product['Size']}",
+                                    icon: Icons.format_size,
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                  const SizedBox(height: 12),
+                                  _buildStyledTextField(
+                                    controller: stockController,
+                                    label: "Stock",
+                                    // hint:
+                                    //     "Was: ₹ ${product['Stock']}",
+                                    icon: Icons.store,
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actionsPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                            actions: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ElevatedButton.icon(
+                                    onPressed: () => Navigator.pop(context),
+                                    icon: const Icon(Icons.cancel),
+                                    label: const Text("Cancel"),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.teal.shade100,
+                                      foregroundColor: Colors.teal.shade900,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  ElevatedButton.icon(
+                                    onPressed: () async {
+                                      final name = nameController.text.trim();
+                                      final brand = brandController.text.trim();
+                                      final weight =
+                                          weightcontroller.text.trim();
+                                      final priceText =
+                                          priceController.text.trim();
+                                      final stockText =
+                                          stockController.text.trim();
+                                      try {
+                                        final double price = double.parse(
+                                          priceText,
+                                        );
+                                        final int stock = int.parse(stockText);
+                                        await eachproduct.reference.update({
+                                          'name': name,
+                                          'brand': brand,
+                                          'weight': weight,
+                                          'price': price,
+                                          'stock': stock,
+                                          'timestamp':
+                                              FieldValue.serverTimestamp(),
+                                        });
+                                        Navigator.pop(context);
+                                      } catch (e) {
+                                        myAleartDialog(
+                                          "Unable to Update",
+                                          context,
+                                        );
+                                      }
+                                    },
+                                    icon: const Icon(Icons.save),
+                                    label: const Text("Update"),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.teal,
+                                      foregroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.edit),
+                    label: Text("Modify", style: GoogleFonts.poppins()),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF3498DB),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      deleteAlert(eachproduct, context);
+                    },
+                    icon: const Icon(Icons.delete),
+                    label: Text("Delete", style: GoogleFonts.poppins()),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrangeAccent,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
 
               const SizedBox(height: 20),
 
@@ -179,6 +364,36 @@ class ProductDetails extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildStyledTextField({
+    required TextEditingController controller,
+    required String label,
+    //required String hint,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon, color: Colors.teal),
+        labelText: label,
+        hintStyle: TextStyle(color: Colors.teal.shade300),
+        labelStyle: TextStyle(color: Colors.teal.shade700),
+        filled: true,
+        fillColor: Colors.white,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.teal.shade200),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.teal, width: 2),
+        ),
+      ),
+      style: GoogleFonts.poppins(color: Colors.black87),
     );
   }
 }

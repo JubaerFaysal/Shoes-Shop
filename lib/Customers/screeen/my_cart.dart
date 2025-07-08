@@ -69,9 +69,12 @@ class _MyCartPageState extends State<MyCartPage> {
 
                     return Card(
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       elevation: 4,
                       child: ListTile(
                         leading: ClipRRect(
@@ -85,40 +88,45 @@ class _MyCartPageState extends State<MyCartPage> {
                         ),
                         title: Text(
                           data['productName'],
-                          style:
-                              GoogleFonts.poppins(fontWeight: FontWeight.w600),
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                        subtitle:
-                            Text('₹ ${data['price']} x ${data['quantity']}'),
+                        subtitle: Text(
+                          '₹ ${data['price']} x ${data['quantity']}',
+                        ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
                               icon: const Icon(Icons.visibility),
                               onPressed: () async {
-                                final productSnap = await FirebaseFirestore
-                                    .instance
-                                    .collection('Inventory')
-                                    .doc(data['inventoryId'])
-                                    .collection('Products')
-                                    .doc(data['productId'])
-                                    .get();
+                                final productSnap =
+                                    await FirebaseFirestore.instance
+                                        .collection('Product_Category')
+                                        .doc(data['categoryId'])
+                                        .collection('Products')
+                                        .doc(data['productId'])
+                                        .get();
 
                                 final productData = productSnap.data();
 
                                 if (productData != null) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (_) => Dialog(
-                                      backgroundColor: Colors.transparent,
-                                      child: CProductDetails(
-                                          eachproduct: productSnap, uniqueId: data['inventoryId'],),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => CProductDetails(
+                                            eachproduct: productSnap,
+                                            uniqueId: data['categoryId'],
+                                          ),
                                     ),
                                   );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                        content: Text("Product not found.")),
+                                      content: Text("Product not found."),
+                                    ),
                                   );
                                 }
                               },
@@ -128,25 +136,36 @@ class _MyCartPageState extends State<MyCartPage> {
                               onPressed: () async {
                                 final confirm = await showDialog<bool>(
                                   context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text("Remove Item"),
-                                    content: const Text(
-                                        "Are you sure you want to remove this item from the cart?"),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, false),
-                                        child: const Text("Cancel"),
+                                  builder:
+                                      (context) => AlertDialog(
+                                        title: const Text("Remove Item"),
+                                        content: const Text(
+                                          "Are you sure you want to remove this item from the cart?",
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed:
+                                                () => Navigator.pop(
+                                                  context,
+                                                  false,
+                                                ),
+                                            child: const Text("Cancel"),
+                                          ),
+                                          TextButton(
+                                            onPressed:
+                                                () => Navigator.pop(
+                                                  context,
+                                                  true,
+                                                ),
+                                            child: const Text(
+                                              "Delete",
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, true),
-                                        child: const Text("Delete",
-                                            style:
-                                                TextStyle(color: Colors.red)),
-                                      ),
-                                    ],
-                                  ),
                                 );
 
                                 if (confirm == true) {
@@ -168,12 +187,15 @@ class _MyCartPageState extends State<MyCartPage> {
               ),
               // Total price & Buy Now
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 15,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.teal.shade50,
                   border: const Border(
-                      top: BorderSide(color: Colors.grey, width: 0.2)),
+                    top: BorderSide(color: Colors.grey, width: 0.4),
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,12 +209,12 @@ class _MyCartPageState extends State<MyCartPage> {
                       ),
                     ),
                     ElevatedButton.icon(
-                     onPressed: () async {
-                        final userId = FirebaseAuth.instance.currentUser?.uid;
-                        final cartRef = FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(userId)
-                            .collection('Cart');
+                      onPressed: () async {
+                        //final userId = FirebaseAuth.instance.currentUser?.uid;
+                        // final cartRef = FirebaseFirestore.instance
+                        //     .collection('users')
+                        //     .doc(userId)
+                        //     .collection('Cart');
 
                         final userHistoryRef = FirebaseFirestore.instance
                             .collection('users')
@@ -200,7 +222,9 @@ class _MyCartPageState extends State<MyCartPage> {
                             .collection('History');
 
                         final globalHistoryRef = FirebaseFirestore.instance
-                            .collection('Globalhistory'); // Global history for admin
+                            .collection(
+                              'Globalhistory',
+                            ); // Global history for admin
 
                         final cartSnapshot = await cartRef.get();
 
@@ -214,12 +238,13 @@ class _MyCartPageState extends State<MyCartPage> {
                           final categoryId = cartData['categoryId'];
                           final quantity = cartData['quantity'];
 
-                          final productSnap = await FirebaseFirestore.instance
-                              .collection('Product_Category')
-                              .doc(categoryId)
-                              .collection('Products')
-                              .doc(productId)
-                              .get();
+                          final productSnap =
+                              await FirebaseFirestore.instance
+                                  .collection('Product_Category')
+                                  .doc(categoryId)
+                                  .collection('Products')
+                                  .doc(productId)
+                                  .get();
 
                           if (!productSnap.exists) {
                             stockOkay = false;
@@ -228,7 +253,7 @@ class _MyCartPageState extends State<MyCartPage> {
                           }
 
                           final productData = productSnap.data()!;
-                          final stock = productData['Stock'] ?? 0;
+                          final stock = productData['stock'] ?? 0;
 
                           if (stock < quantity) {
                             stockOkay = false;
@@ -245,8 +270,10 @@ class _MyCartPageState extends State<MyCartPage> {
                         }
 
                         // Step 2: Proceed to payment
-                        bool paymentSuccess =
-                            await showCardPaymentDialog(context, totalPrice);
+                        bool paymentSuccess = await showCardPaymentDialog(
+                          context,
+                          totalPrice,
+                        );
 
                         if (!paymentSuccess) {
                           myAleartDialog('Payment failed', context);
@@ -259,7 +286,7 @@ class _MyCartPageState extends State<MyCartPage> {
                         for (var doc in cartSnapshot.docs) {
                           final cartData = doc.data();
                           final productId = cartData['productId'];
-                          final inventoryId = cartData['inventoryId'];
+                          final categoryId = cartData['categoryId'];
                           final quantity = cartData['quantity'];
 
                           final timestamp = FieldValue.serverTimestamp();
@@ -284,8 +311,8 @@ class _MyCartPageState extends State<MyCartPage> {
 
                           // Decrement stock
                           final productRef = FirebaseFirestore.instance
-                              .collection('Inventory')
-                              .doc(inventoryId)
+                              .collection('Product_Category')
+                              .doc(categoryId)
                               .collection('Products')
                               .doc(productId);
 
@@ -300,7 +327,8 @@ class _MyCartPageState extends State<MyCartPage> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                  "Payment successful. Items moved to history."),
+                                "Payment successful. Items moved to history.",
+                              ),
                             ),
                           );
                         }
@@ -312,14 +340,17 @@ class _MyCartPageState extends State<MyCartPage> {
                         backgroundColor: Colors.teal.shade600,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 12),
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           );
         },

@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:shoes_business/Customers/Cart/product.dart';
+import 'package:shoes_business/Customers/Card%20design/product.dart';
+import 'package:shoes_business/Customers/screeen/my_cart.dart';
 
 class CProductView extends StatefulWidget {
   final String uniqueId;
@@ -31,7 +32,12 @@ class _CProductViewState extends State<CProductView> {
         actions: [
           IconButton(
             onPressed: () {
-             
+               Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyCartPage(),
+                ),
+              );
             },
             icon: const Icon(
               Icons.shopping_cart,

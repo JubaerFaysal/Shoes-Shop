@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shoes_business/Admin/Cart%20Design/categori_cart.dart';
+import 'package:shoes_business/Admin/Card%20Design/categori_cart.dart';
+import 'package:shoes_business/Admin/screen/global_history.dart';
 import 'package:shoes_business/Methods/category_method.dart';
 import 'package:shoes_business/components/my_button.dart';
 import 'package:shoes_business/components/my_dialog_box.dart';
@@ -19,6 +20,16 @@ class AdminHome extends StatelessWidget {
             MyButton(
               text: "Log Out",
               onPressed: () => FirebaseAuth.instance.signOut(),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AllCustomerHistory()),
+                );
+              },
+              icon: Icon(Icons.history),
+              color: Colors.blue,
             ),
           ],
         ),
