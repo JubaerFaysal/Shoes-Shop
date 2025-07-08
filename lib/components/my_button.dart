@@ -38,11 +38,8 @@ class MyButton extends StatelessWidget {
         
         backgroundColor: color ?? const Color.fromARGB(255, 237, 4, 4),
         foregroundColor: Colors.white,
-        
-       // padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
+         padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 14),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         
         elevation: 3,
         shadowColor: const Color.fromARGB(255, 34, 34, 34),
