@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shoes_business/Admin/screen/product_details.dart';
 
 class AllCustomerHistory extends StatelessWidget {
@@ -23,11 +22,13 @@ class AllCustomerHistory extends StatelessWidget {
         backgroundColor: Colors.teal.shade600,
         title: Text(
           'All Customers History',
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          style: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w200,
+                          color: Colors.deepOrangeAccent,
+                        ),
+          
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -111,9 +112,11 @@ class AllCustomerHistory extends StatelessWidget {
                         ),
                         title: Text(
                           data['productName'] ?? 'Unknown Product',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
+                          style: const TextStyle(
                             fontSize: 16,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w200,
+                            color: Colors.deepOrangeAccent,
                           ),
                         ),
                         subtitle: Text(

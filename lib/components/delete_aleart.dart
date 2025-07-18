@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void deleteAlert(DocumentSnapshot eachItem, BuildContext context) {
   showDialog(
@@ -13,8 +12,9 @@ void deleteAlert(DocumentSnapshot eachItem, BuildContext context) {
       title: Center(
         child: Text(
           'Delete Item',
-          style: GoogleFonts.poppins(
+          style: TextStyle(
             fontSize: 18,
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
             color: Colors.teal.shade700,
           ),
@@ -28,7 +28,8 @@ void deleteAlert(DocumentSnapshot eachItem, BuildContext context) {
           Text(
             "Are you sure you want to delete this item?",
             textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
+            style: TextStyle(
+              fontFamily: 'Poppins',
               fontSize: 16,
               fontWeight: FontWeight.w500,
               color: Colors.grey.shade800,

@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shoes_business/Customers/screeen/c_product_details.dart';
 
 class History extends StatelessWidget {
@@ -56,7 +55,9 @@ class History extends StatelessWidget {
                   ),
                    title: Text(
                     item['productName'],
-                    style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600),
                   ),
                   subtitle: Text('₹ ${item['price']} x ${item['quantity']}'),
                   trailing: IconButton(

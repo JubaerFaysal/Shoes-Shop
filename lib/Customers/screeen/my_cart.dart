@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shoes_business/Customers/screeen/c_product_details.dart';
 import 'package:shoes_business/Methods/payment_method.dart';
 import 'package:shoes_business/components/my_aleart_dialog.dart';
@@ -30,7 +29,9 @@ class _MyCartPageState extends State<MyCartPage> {
       appBar: AppBar(
         title: Text(
           'My Cart',
-          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 20, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.teal.shade500,
       ),
@@ -88,7 +89,8 @@ class _MyCartPageState extends State<MyCartPage> {
                         ),
                         title: Text(
                           data['productName'],
-                          style: GoogleFonts.poppins(
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -202,7 +204,8 @@ class _MyCartPageState extends State<MyCartPage> {
                   children: [
                     Text(
                       'Total: ₹ ${totalPrice.toStringAsFixed(2)}',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.teal.shade700,

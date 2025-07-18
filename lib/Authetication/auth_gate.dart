@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_business/Admin/screen/admin_home.dart';
+import 'package:shoes_business/Authetication/splash_screen.dart';
 import 'package:shoes_business/Customers/screeen/customer_home.dart';
 import 'login_or_register.dart';
 
@@ -34,7 +35,7 @@ class AuthGate extends StatelessWidget {
         builder: (context, snapshot) {
           // Not logged in
           if (!snapshot.hasData) {
-            return const LoginOrRegister();
+            return const ShoeSplashScreen();
           }
 
           // Logged in, check role

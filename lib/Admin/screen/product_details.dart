@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shoes_business/components/delete_aleart.dart';
 import 'package:shoes_business/components/my_aleart_dialog.dart';
@@ -31,10 +30,11 @@ class ProductDetails extends StatelessWidget {
             children: [
               Text(
                 "Details for ${eachproduct['name']}",
-                style: GoogleFonts.poppins(
-                  color: Colors.teal.shade700,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w200,
+                  color: Colors.deepOrangeAccent,
                 ),
               ),
               const SizedBox(height: 16),
@@ -51,7 +51,12 @@ class ProductDetails extends StatelessWidget {
               Text(
                 "Enjoy your shopping with FQ's.\nTailor's App makes our shopping easy and peaceful.",
                 textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(color: Colors.grey[700]),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w200,
+                  color: Colors.deepOrangeAccent,
+                ),
               ),
               const SizedBox(height: 20),
               Divider(color: Colors.teal.shade300),
@@ -85,8 +90,9 @@ class ProductDetails extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Available Sizes:",
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
                       fontSize: 16,
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                       color: Colors.teal.shade800,
                     ),
@@ -100,8 +106,9 @@ class ProductDetails extends StatelessWidget {
                         return Chip(
                           label: Text(
                             size.toString(),
-                            style: GoogleFonts.poppins(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins',
                               fontSize: 14,
                             ),
                           ),
@@ -126,17 +133,19 @@ class ProductDetails extends StatelessWidget {
                   children: [
                     Text(
                       "Price:",
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       "₹ ${eachproduct['price']}",
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -176,8 +185,9 @@ class ProductDetails extends StatelessWidget {
                             title: Center(
                               child: Text(
                                 "Update Product",
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   fontSize: 20.0,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                   color: Colors.teal[800],
                                 ),
@@ -303,7 +313,7 @@ class ProductDetails extends StatelessWidget {
                       );
                     },
                     icon: const Icon(Icons.edit),
-                    label: Text("Modify", style: GoogleFonts.poppins()),
+                    label: Text("Modify", style: TextStyle(fontFamily: 'Poppins')),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF3498DB),
                       foregroundColor: Colors.white,
@@ -317,7 +327,7 @@ class ProductDetails extends StatelessWidget {
                       deleteAlert(eachproduct, context);
                     },
                     icon: const Icon(Icons.delete),
-                    label: Text("Delete", style: GoogleFonts.poppins()),
+                    label: Text("Delete", style: TextStyle(fontFamily: 'Poppins')),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrangeAccent,
                       foregroundColor: Colors.white,
@@ -353,12 +363,13 @@ class ProductDetails extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           label,
-          style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600),
+          style: TextStyle(fontFamily: 'Poppins',fontSize: 12, fontWeight: FontWeight.w600),
         ),
         Text(
           value,
-          style: GoogleFonts.poppins(
+          style: TextStyle(
             fontSize: 13,
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             color: Colors.grey[800],
           ),
@@ -393,7 +404,7 @@ class ProductDetails extends StatelessWidget {
           borderSide: const BorderSide(color: Colors.teal, width: 2),
         ),
       ),
-      style: GoogleFonts.poppins(color: Colors.black87),
+      style: TextStyle(fontFamily: 'Poppins',color: Colors.black87),
     );
   }
 }

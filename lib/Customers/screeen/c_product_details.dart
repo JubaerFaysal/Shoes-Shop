@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shoes_business/Methods/cart.dart';
 import 'package:shoes_business/Methods/payment_method.dart';
@@ -32,7 +31,8 @@ class CProductDetails extends StatelessWidget {
             children: [
               Text(
                 "Details for ${eachproduct['name']}",
-                style: GoogleFonts.poppins(
+                style: TextStyle(
+                  fontFamily: 'Poppins',
                   color: Colors.teal.shade700,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class CProductDetails extends StatelessWidget {
               Text(
                 "Enjoy your shopping with FQ's.\nTailor's App makes our shopping easy and peaceful.",
                 textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(color: Colors.grey[700]),
+                style: TextStyle(fontFamily: 'Poppins',color: Colors.grey[700]),
               ),
               const SizedBox(height: 20),
               Divider(color: Colors.teal.shade300),
@@ -86,7 +86,8 @@ class CProductDetails extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Available Sizes:",
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.teal.shade800,
@@ -101,7 +102,8 @@ class CProductDetails extends StatelessWidget {
                         return Chip(
                           label: Text(
                             size.toString(),
-                            style: GoogleFonts.poppins(
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
@@ -127,7 +129,8 @@ class CProductDetails extends StatelessWidget {
                   children: [
                     Text(
                       "Price:",
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -135,7 +138,8 @@ class CProductDetails extends StatelessWidget {
                     ),
                     Text(
                       "₹ ${eachproduct['price']}",
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
                         color: Colors.white,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -220,11 +224,14 @@ class CProductDetails extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           label,
-          style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 12, fontWeight: FontWeight.w600),
         ),
         Text(
           value,
-          style: GoogleFonts.poppins(
+          style: TextStyle(
+            fontFamily: 'Poppins',
             fontSize: 13,
             fontWeight: FontWeight.w500,
             color: Colors.grey[800],

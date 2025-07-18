@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -11,6 +10,7 @@ class MyButton extends StatelessWidget {
   final double? fontsize;
   final double? buttonBlur;
   final Color? textcolor;
+  final Color? iconColor;
 
   const MyButton({
     super.key,
@@ -22,7 +22,8 @@ class MyButton extends StatelessWidget {
     this.color,
     this.fontsize,
     this.buttonBlur,
-    this.textcolor
+    this.textcolor,
+    this.iconColor
   });
 
   @override
@@ -31,26 +32,33 @@ class MyButton extends StatelessWidget {
    // final screenSize = MediaQuery.of(context).size;
    // final screenWidth = screenSize.width;
 
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      
-      style: ElevatedButton.styleFrom(
+    return SizedBox(
+      height: height,
+      width: width,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
         
-        backgroundColor: color ?? const Color.fromARGB(255, 237, 4, 4),
-        foregroundColor: Colors.white,
-         padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        
-        elevation: 3,
-        shadowColor: const Color.fromARGB(255, 34, 34, 34),
-      ),
-      icon: Icon(icon, size: 18,color: Colors.white,), 
-      label: Text(
-        text,
-        style: GoogleFonts.poppins(
-          fontSize: fontsize , 
-          fontWeight: FontWeight.w600,
-          color: textcolor??Colors.white
+        style: ElevatedButton.styleFrom(
+          
+          backgroundColor: color ?? const Color.fromARGB(255, 237, 4, 4),
+          foregroundColor: Colors.white,
+           padding: const EdgeInsets.symmetric(vertical: 14,horizontal: 14),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          
+          elevation: 3,
+          shadowColor: const Color.fromARGB(255, 34, 34, 34),
+        ),
+        icon: Icon(icon, size: 20,color: iconColor?? Colors.white,), 
+        label: Text(
+          text,
+          style:  TextStyle(
+            fontSize: fontsize ,
+            fontFamily: 'Poppins',
+            color: textcolor??Colors.white,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
+          ),
+         
         ),
       ),
     );

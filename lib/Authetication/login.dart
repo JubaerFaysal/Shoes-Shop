@@ -2,218 +2,157 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shoes_business/components/my_aleart_dialog.dart';
 import 'package:shoes_business/components/my_button.dart';
 import 'package:shoes_business/components/my_dialog_box.dart';
 import 'package:shoes_business/components/my_text_form.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   final void Function()? onTap;
   const Login({super.key, required this.onTap});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController email = TextEditingController();
-    final TextEditingController password = TextEditingController();
-    final formKey = GlobalKey<FormState>();
+  State<Login> createState() => _LoginState();
+}
 
-    void login() async {
-      showDialog(context: context, builder: (context) => const MyDialogBox());
-      try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email.text.trim(),
-          password: password.text.trim(),
-        );
-        if (context.mounted) Navigator.pop(context);
-      } catch (e) {
-        Navigator.pop(context);
-        myAleartDialog(e.toString(), context);
-      }
+class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  late AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
+    _fadeAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeIn));
+
+    _fadeController.forward();
+  }
+
+  void login() async {
+    showDialog(context: context, builder: (context) => const MyDialogBox());
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email.text.trim(),
+        password: password.text.trim(),
+      );
+      if (context.mounted) Navigator.pop(context);
+    } catch (e) {
+      Navigator.pop(context);
+      myAleartDialog(e.toString(), context);
     }
+  }
 
+  @override
+  void dispose() {
+    _fadeController.dispose();
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 249, 247, 250),
-      body: Center(
-        child: SingleChildScrollView(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return constraints.maxWidth > 600
-                  ? Row(
+      backgroundColor: Colors.teal.shade50,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: Column(
+                children: [
+                  Hero(
+                    tag: 'shoeHero',
+                    child: Image.asset('assets/images/shoes.png', height: 160),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Welcome Back",
+                    style: const TextStyle(
+                      fontSize: 42,
+                      fontFamily: 'Yesteryear',
+                      color: Colors.teal,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        MyTextForm(
+                          labeltext: "Email",
+                          controller: email,
+                          obscureText: false,
+                          icon: const Icon(Icons.mail),
+                        ),
+                        const SizedBox(height: 16),
+                        MyTextForm(
+                          labeltext: "Password",
+                          controller: password,
+                          obscureText: true,
+                          icon: const Icon(Icons.lock),
+                        ),
+                        const SizedBox(height: 20),
+                        MyButton(
+                          text: "Login",
+                         // height: 50,
+                         width: 320,
+                          color: Colors.teal,
+                          fontsize: 17,
+                          icon: Icons.login,
+                          textcolor: Colors.white,
+                          buttonBlur: 0.5,
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              login();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 320,
-                        // child: Image.asset("lib/images/muslimah.png"),
+                      Text(
+                        "Don't have an account?",
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w300,
+                          color: Colors.deepOrangeAccent,
+                        ),
                       ),
-
-                      const SizedBox(width: 30),
-                      Expanded(
-                        child: Form(
-                          key: formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Welcome Back",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.teal,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              MyTextForm(
-                                labeltext: "Email",
-                                controller: email,
-                                icon: const Icon(Icons.mail),
-                              ),
-                              const SizedBox(height: 10),
-                              MyTextForm(
-                                labeltext: "Password",
-                                controller: password,
-                                obscureText: true,
-                                icon: const Icon(Icons.lock),
-                              ),
-                              const SizedBox(height: 12),
-                              MyButton(
-                                text: "Login",
-                                height: 50,
-                                color: Colors.cyan,
-                                fontsize: 18,
-                                icon: Icons.login,
-                                textcolor: Colors.white,
-                                buttonBlur: 0.5,
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    login();
-                                  }
-                                },
-                              ),
-                              const SizedBox(height: 15),
-                              //don't have accout?register
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Don't have an account?",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.deepOrangeAccent,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: onTap,
-                                    child: Text(
-                                      " Register Now",
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: const Color.fromARGB(
-                                          255,
-                                          0,
-                                          212,
-                                          46,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                      GestureDetector(
+                        onTap: widget.onTap,
+                        child: Text(
+                          " Register Now",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
                           ),
                         ),
                       ),
                     ],
-                  )
-                  : Column(
-                    children: [
-                      const CircleAvatar(
-                        radius: 100,
-                        // backgroundImage: AssetImage(
-                        //   "lib/images/muslimah.png",
-                        // ),
-                      ),
-                      const SizedBox(height: 20),
-                      Form(
-                        key: formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Welcome Back",
-                              style: GoogleFonts.poppins(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.teal,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            MyTextForm(
-                              labeltext: "Email",
-                              controller: email,
-                              obscureText: false,
-                              icon: const Icon(Icons.mail),
-                            ),
-                            const SizedBox(height: 10),
-                            MyTextForm(
-                              labeltext: "Password",
-                              controller: password,
-                              obscureText: true,
-                              icon: const Icon(Icons.lock),
-                            ),
-                            const SizedBox(height: 12),
-                            MyButton(
-                              text: "Login",
-                              height: 50,
-                              color: Colors.teal,
-                              fontsize: 18,
-                              icon: Icons.login,
-                              textcolor: Colors.white,
-                              buttonBlur: 0.5,
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  login();
-                                }
-                              },
-                            ),
-                            const SizedBox(height: 15),
-                            //don't have accout?register
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Don't have an account?",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.deepOrangeAccent,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: onTap,
-                                  child: Text(
-                                    " Register Now",
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: const Color.fromARGB(
-                                        255,
-                                        0,
-                                        212,
-                                        46,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
-            },
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
