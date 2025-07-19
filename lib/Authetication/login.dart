@@ -45,7 +45,10 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         email: email.text.trim(),
         password: password.text.trim(),
       );
-      if (context.mounted) Navigator.pop(context);
+      if (context.mounted){
+         Navigator.pop(context);
+         Navigator.pop(context);
+      }
     } catch (e) {
       Navigator.pop(context);
       myAleartDialog(e.toString(), context);
@@ -74,16 +77,17 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 children: [
                   Hero(
                     tag: 'shoeHero',
-                    child: Image.asset('assets/images/shoes.png', height: 160),
+                    child: Image.asset('assets/images/high-heels.png', height: 160),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     "Welcome Back",
                     style: const TextStyle(
-                      fontSize: 42,
-                      fontFamily: 'Yesteryear',
+                      fontSize: 34,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
                       color: Colors.teal,
-                      letterSpacing: 1.2,
+                      letterSpacing: 1,
                     ),
                   ),
                   const SizedBox(height: 25),

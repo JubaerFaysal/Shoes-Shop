@@ -12,7 +12,20 @@ class History extends StatelessWidget {
   Widget build(BuildContext context) {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     return Scaffold(
-      appBar: AppBar(title: Text("History")),
+      appBar: AppBar(
+        backgroundColor: Colors.teal.shade500,
+        title: Text(
+          'History',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
+        ),
+         leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.chevron_left, color: Colors.white, size: 35),
+        ),
+        
+      ),
       body: StreamBuilder(
         stream:
             FirebaseFirestore.instance
@@ -39,6 +52,7 @@ class History extends StatelessWidget {
                   horizontal: 16,
                   vertical: 10,
                 ),
+                color: Colors.teal.shade100,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -59,7 +73,7 @@ class History extends StatelessWidget {
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600),
                   ),
-                  subtitle: Text('₹ ${item['price']} x ${item['quantity']}'),
+                  subtitle: Text('৳ ${item['price']} x ${item['quantity']}'),
                   trailing: IconButton(
                               icon: const Icon(Icons.visibility),
                               onPressed: () async {

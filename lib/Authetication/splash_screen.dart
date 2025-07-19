@@ -99,7 +99,7 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
   }
 
   void _startWelcomeTyping() {
-    const durationPerLetter = Duration(milliseconds: 160);
+    const durationPerLetter = Duration(milliseconds: 120);
     for (int i = 0; i < welcomeText.length; i++) {
       Future.delayed(durationPerLetter * i, () {
         setState(() {
@@ -119,14 +119,14 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
   }
 
   void _startShopTyping() {
-    const durationPerLetter = Duration(milliseconds: 130);
+    const durationPerLetter = Duration(milliseconds: 100);
     for (int i = 0; i < shopText.length; i++) {
       Future.delayed(durationPerLetter * i, () {
         setState(() {
           shopAnimatedLetters.add(AnimatedLetter(char: shopText[i]));
         });
         if (i == shopText.length - 1) {
-          Future.delayed(const Duration(milliseconds: 500), () {
+          Future.delayed(const Duration(milliseconds: 400), () {
             _buttonController.forward();
           });
         }
@@ -147,107 +147,109 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.teal,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Stack(
-          children: [
-            // Welcome animated text
-            Center(
-              child: SlideTransition(
-                position: _welcomeSlide,
-                child: AnimatedBuilder(
-                  animation: _welcomeFontSize,
-                  builder:
-                      (context, child) => Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children:
-                            welcomeAnimatedLetters.map((letter) {
-                              return Transform.scale(
-                                scale: _welcomeFontSize.value / 52,
-                                child: letter,
-                              );
-                            }).toList(),
-                      ),
-                ),
+      body: Stack(
+        children: [
+          // Welcome animated text
+          Center(
+            child: SlideTransition(
+              position: _welcomeSlide,
+              child: AnimatedBuilder(
+                animation: _welcomeFontSize,
+                builder:
+                    (context, child) => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children:
+                          welcomeAnimatedLetters.map((letter) {
+                            return Transform.scale(
+                              scale: _welcomeFontSize.value / 52,
+                              child: letter,
+                            );
+                          }).toList(),
+                    ),
               ),
             ),
-        
-            // Shoe Hero Image with fade
-            if (_showIconAndText)
-              Align(
-                alignment: Alignment.center,
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: Hero(
-                    tag: 'shoeHero',
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 40),
-                      child: Image.asset(
-                        'assets/images/shoes.png',
-                        height: 150,
-                      ),
-                    ),
+          ),
+      
+          // Shoe Hero Image with fade
+          if (_showIconAndText)
+            Align(
+              alignment: Alignment.center,
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: Hero(
+                  tag: 'shoeHero',
+                  child: Image.asset(
+                    'assets/images/high-heels.png',
+                    height: 150,
                   ),
                 ),
               ),
-        
-            // Icon + Shoe Shop animated text
-            if (_showIconAndText)
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 160),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SlideTransition(
-                        position: _iconSlideAnimation,
-                        child: RotationTransition(
-                          turns: _iconRotation,
-                          child: Image.asset(
-                            'assets/images/tennis-shoe-icon-56.png',
-                            height: 50,
-                            width: 50,
-                          ),
+            ),
+      
+          // Icon + Shoe Shop animated text
+          if (_showIconAndText)
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 240),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SlideTransition(
+                      position: _iconSlideAnimation,
+                      child: RotationTransition(
+                        turns: _iconRotation,
+                        child: Image.asset(
+                          'assets/images/tennis-shoe-icon-56.png',
+                          height: 50,
+                          width: 50,
                         ),
                       ),
-                      const SizedBox(width: 12),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: shopAnimatedLetters,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-        
-            // Buttons from bottom
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SlideTransition(
-                position: _buttonSlide,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 40.0),
-                  child: MyButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const LoginOrRegister(),
-                      ));
-                    },
-                    text: 'Start Shopping!',
-                    width: double.infinity,
-                    height: 60,
-                    color: Colors.tealAccent,
-                    textcolor: Colors.black54,
-                    icon: Icons.shopify,
-                    iconColor: Colors.black54,
-                    fontsize: 16,
-                  ),
+                    ),
+                    const SizedBox(width: 12),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: shopAnimatedLetters,
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
+      
+          // Buttons from bottom
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SlideTransition(
+              position: _buttonSlide,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 40.0,left: 25,right: 25),
+                child: MyButton(
+                  onPressed: () {
+                   Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: const Duration(
+                          milliseconds: 800,
+                        ), // <-- slower transition
+                        pageBuilder:
+                            (_, __, ___) => LoginOrRegister()
+                      ),
+                    );
+
+                  },
+                  text: 'Start Shopping!',
+                  width: double.infinity,
+                  height: 60,
+                  color: Colors.tealAccent,
+                  textcolor: Colors.black54,
+                  icon: Icons.shopify,
+                  iconColor: Colors.black54,
+                  fontsize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -27,13 +27,18 @@ class _MyCartPageState extends State<MyCartPage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.teal.shade500,
         title: Text(
           'My Cart',
           style: TextStyle(
             fontFamily: 'Poppins',
-            fontSize: 20, fontWeight: FontWeight.bold),
+            fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
         ),
-        backgroundColor: Colors.teal.shade500,
+         leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.chevron_left, color: Colors.white, size: 35),
+        ),
+        
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: cartRef.orderBy('timestamp', descending: true).snapshots(),
@@ -73,6 +78,7 @@ class _MyCartPageState extends State<MyCartPage> {
                         horizontal: 16,
                         vertical: 10,
                       ),
+                      color: Colors.teal.shade100,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -203,7 +209,7 @@ class _MyCartPageState extends State<MyCartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Total: ₹ ${totalPrice.toStringAsFixed(2)}',
+                      'Total: ৳ ${totalPrice.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: 18,

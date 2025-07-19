@@ -92,16 +92,17 @@ class _RegisterState extends State<Register>
                 children: [
                   Hero(
                     tag: 'shoeHero',
-                    child: Image.asset('assets/images/shoes.png', height: 150),
+                    child: Image.asset('assets/images/high-heels.png', height: 150),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     "Create Account",
                     style: const TextStyle(
-                      fontSize: 42,
-                      fontFamily: 'Yesteryear',
+                      fontSize: 34,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
                       color: Colors.teal,
-                      letterSpacing: 1.2,
+                      letterSpacing: 1,
                     ),
                   ),
                   const SizedBox(height: 20),

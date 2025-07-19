@@ -10,75 +10,94 @@ class Product extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 184, 255, 246),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(12),
-              topLeft: Radius.circular(12),
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(top: 95,),
+          height: 220,
+          width: 280,
+         decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [const Color.fromARGB(255, 236, 251, 251), Colors.teal.shade200],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-            child: Image.network(
-              eachProduct['imageUrl'],
-              height: 200,
-              width: 200,
-              fit: BoxFit.fill,
-            ),
+            borderRadius: BorderRadius.circular(16),
           ),
-          const SizedBox(height: 9),
-          Text(
-            eachProduct['name'],
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 17,
-              color: Color.fromARGB(255, 27, 76, 44),
+        ),
+        Column(
+          children: [
+            Hero(
+              tag: eachProduct['imageUrl'],
+              child: Image.network(
+                eachProduct['imageUrl'],
+                //  height: 200,
+                //  width: 180,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Price",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 17,
-                    color: Color.fromARGB(255, 27, 76, 44),
+            const SizedBox(height: 5),
+            Text(
+              eachProduct['name'],
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+                fontFamily: 'Poppins',
+                color: Color.fromARGB(255, 27, 76, 44),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Price:",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,    
+                      fontSize: 17,
+                      fontFamily: 'Poppins',
+                      color: Color.fromARGB(255, 27, 76, 44),
+                    ),
                   ),
-                ),
-                Text(
-                  "${eachProduct['price']} Tk",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 17,
-                    color: Color.fromARGB(255, 27, 76, 44),
-                  ),
-                ),
-              ],
+                  Text(
+                    "${eachProduct['price']} ৳",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                      fontFamily: 'Poppins',
+                      color: Color.fromARGB(255, 27, 76, 44),
+                    ),
+                  ),  
+                ]
+              )
             ),
-          ),
-          MyButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (context) => CProductDetails(eachproduct: eachProduct, uniqueId: uniqueId,),
-                ),
-              );
-            },
-            text: "Viw details",
-            color: const Color.fromARGB(255, 8, 174, 14),
-          ),
-          const SizedBox(height: 10),
-        ],
-      ),
+            MyButton(
+              onPressed: () {
+               Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    transitionDuration: const Duration(
+                      milliseconds: 800,
+                    ), 
+                    pageBuilder:
+                        (_, __, ___) => CProductDetails(
+                          eachproduct: eachProduct,
+                          uniqueId: uniqueId,
+                        ),
+                  ),
+                );
+
+              },
+              text: "View details",
+              color: Colors.teal,
+              icon: Icons.remove_red_eye,
+            ),
+          ],
+        ),
+      ],
     );
+    
   }
 }

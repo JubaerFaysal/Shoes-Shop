@@ -6,7 +6,7 @@ import 'package:shoes_business/Customers/screeen/my_cart.dart';
 
 class CProductView extends StatefulWidget {
   final String uniqueId;
-  const CProductView({super.key,required this.uniqueId});
+  const CProductView({super.key, required this.uniqueId});
 
   @override
   State<CProductView> createState() => _CProductViewState();
@@ -18,75 +18,83 @@ class _CProductViewState extends State<CProductView> {
     final products = FirebaseFirestore.instance
         .collection('Product_Category')
         .doc(widget.uniqueId);
+
     return Scaffold(
-       appBar: AppBar(
+      backgroundColor: const Color(0xFFF3FDFD),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFF3FDFD),
+        elevation: 0,
         title: const Text(
-          'Products',
+          'Explore Products',
           style: TextStyle(
             fontSize: 24,
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 0, 159, 6),
+            color: Colors.teal,
           ),
         ),
-       
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.chevron_left, color: Colors.teal, size: 35),
+        ),
         actions: [
           IconButton(
             onPressed: () {
-               Navigator.push(
+              Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => MyCartPage(),
-                ),
+                MaterialPageRoute(builder: (_) => MyCartPage()),
               );
             },
             icon: const Icon(
-              Icons.shopping_cart,
-              size: 35,
-              color: Color.fromARGB(255, 0, 141, 21),
+              Icons.shopping_cart_outlined,
+              size: 30,
+              color: Colors.teal,
             ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: products.collection('Products').snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
+      body: StreamBuilder<QuerySnapshot>(
+        stream: products.collection('Products').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-            final productList = snapshot.data!.docs;
+          final productList = snapshot.data!.docs;
 
-            if (productList.isEmpty) {
-              return const Center(child: Text('No Products uploaded yet.'));
-            }
+          if (productList.isEmpty) {
+            return const Center(child: Text('No Products uploaded yet.'));
+          }
 
-            return MasonryGridView(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              primary: false,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 20,
-              gridDelegate:
-                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+          return MasonryGridView.count(
+            crossAxisCount: 2,
+            padding: const EdgeInsets.only(right: 10,left: 10),
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 20,
+            itemCount: productList.length + 1,
+            itemBuilder: (context, index) {
+              if (index == 0) {
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    "Enjoy Your Step with FQs",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Yesteryear',
+                      fontSize: 38,
+                      color: Colors.teal.shade700,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 1.1,
+                    ),
                   ),
-              children: [
-                const Text(
-                  "Enjoy Your Shopping With Mudi😊",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Color.fromARGB(255, 0, 159, 6),
-                  ),
-                ),
-                for (var eachProduct in productList)
-                  Product(eachProduct: eachProduct, uniqueId: widget.uniqueId,),
-              ],
-            );
-          },
-        ),
+                );
+              } else {
+                final product = productList[index - 1];
+                return Product(eachProduct: product, uniqueId: widget.uniqueId);
+              }
+            },
+          );
+        },
       ),
     );
   }

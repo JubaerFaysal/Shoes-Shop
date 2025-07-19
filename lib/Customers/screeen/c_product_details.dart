@@ -7,237 +7,317 @@ import 'package:shoes_business/Methods/cart.dart';
 import 'package:shoes_business/Methods/payment_method.dart';
 import 'package:shoes_business/components/my_button.dart';
 
-class CProductDetails extends StatelessWidget {
+class CProductDetails extends StatefulWidget {
   final dynamic eachproduct;
   final String uniqueId;
-  const CProductDetails({super.key, required this.eachproduct,required this.uniqueId});
+  const CProductDetails({
+    super.key,
+    required this.eachproduct,
+    required this.uniqueId,
+  });
+
+  @override
+  State<CProductDetails> createState() => _CProductDetailsState();
+}
+
+class _CProductDetailsState extends State<CProductDetails> {
+  int? selectedSize;
 
   @override
   Widget build(BuildContext context) {
-    final List<dynamic> sizes = eachproduct['sizes'] ?? [];
-    final int stock = eachproduct['stock'] ?? 0;
-    final Timestamp? timestamp = eachproduct['timestamp'];
+    final product = widget.eachproduct;
+    final List<dynamic> sizes = product['sizes'] ?? [];
+    final int stock = product['stock'] ?? 0;
+    final Timestamp? timestamp = product['timestamp'];
     final String formattedDate =
         timestamp != null
-            ? DateFormat.yMMMd().format(timestamp.toDate())
+            ? DateFormat.yMMMM().format(timestamp.toDate())
             : 'Unknown';
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+       backgroundColor: const Color(0xFFF3FDFD),
+     
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Details for ${eachproduct['name']}",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.teal.shade700,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
+        child: Column(
+          children: [
+            Text(
+              product['name'],
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 26,
+                color: Colors.teal,
+                fontWeight: FontWeight.w600,
               ),
-              const SizedBox(height: 16),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.network(
-                  eachproduct['imageUrl'],
-                  width: 270,
-                  height: 270,
-                  fit: BoxFit.cover,
-                ),
+            ),
+            // Product Image with Hero
+            Hero(
+              tag: product['imageUrl'],
+              child: Image.network(
+                product['imageUrl'],
+                 height: 300,
+                // width: double.infinity,
+                fit: BoxFit.cover,
               ),
-              const SizedBox(height: 16),
-              Text(
-                "Enjoy your shopping with FQ's.\nTailor's App makes our shopping easy and peaceful.",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'Poppins',color: Colors.grey[700]),
-              ),
-              const SizedBox(height: 20),
-              Divider(color: Colors.teal.shade300),
-              const SizedBox(height: 10),
+            ),
+            const SizedBox(height: 16),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildInfoTile(
-                    Icons.label_important,
-                    "Brand",
-                    eachproduct['brand'],
-                  ),
-                  _buildInfoTile(Icons.scale, "Weight", eachproduct['weight']),
-                  _buildInfoTile(
-                    Icons.store,
-                    "Stock",
-                    stock > 0 ? "$stock pcs" : "Out of Stock",
-                  ),
-                  _buildInfoTile(
-                    Icons.calendar_today,
-                    "Added On",
-                    formattedDate,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-
-              if (sizes.isNotEmpty) ...[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Available Sizes:",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.teal.shade800,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 10,
-                  children:
-                      sizes.map((size) {
-                        return Chip(
-                          label: Text(
-                            size.toString(),
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          backgroundColor: Colors.teal.shade100,
-                        );
-                      }).toList(),
-                ),
-                const SizedBox(height: 20),
-              ],
-
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 20,
-                ),
+            // Glass Info Cards
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.teal.shade700,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Price:",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      "₹ ${eachproduct['price']}",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(28),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.teal.shade200,
+                      blurRadius: 12,
+                      offset: const Offset(0, -6),
                     ),
                   ],
                 ),
-              ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Basic Info
+                      Center(
+                        child: Wrap(
+                          spacing: 14,
+                          runSpacing: 14,
+                          alignment: WrapAlignment.center,
+                          children: [
+                            _buildInfoTile(
+                              Icons.label_important,
+                              "Brand",
+                              product['brand'],
+                            ),
+                            _buildInfoTile(
+                              Icons.scale,
+                              "Weight",
+                              product['weight'],
+                            ),
+                            _buildInfoTile(
+                              Icons.store,
+                              "Stock",
+                              stock > 0 ? "$stock pcs" : "Out of Stock",
+                            ),
+                            _buildInfoTile(
+                              Icons.calendar_today,
+                              "Added On",
+                              formattedDate,
+                            ),
+                          ],
+                        ),
+                      ),
 
-              const SizedBox(height: 20),
+                      const SizedBox(height: 24),
 
-              // 💳 Buy Now & Add to Cart Buttons
-              Row(
-                children: [
-                  Expanded(
-                    child: MyButton(
-                      text: "Add to Cart",
-                      onPressed: () async {
-                        try {
-                          await CartService().addToCart(
-                            categoryId: uniqueId,
-                            productId: eachproduct.id,
-                            productName: eachproduct['name'],
-                            price: eachproduct['price'],
-                            imageUrl: eachproduct['imageUrl'],
-                          );
+                      // Sizes
+                      if (sizes.isNotEmpty) ...[
+                        Text(
+                          "Select Size",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            color: Colors.teal.shade900,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 10,
+                          children:
+                              sizes.map((size) {
+                                final isSelected = selectedSize == size;
+                                return ChoiceChip(
+                                  label: Text(size.toString()),
+                                  selected: isSelected,
+                                  selectedColor: Colors.teal.shade300,
+                                  backgroundColor: Colors.teal.shade100,
+                                  onSelected: (_) {
+                                    setState(() {
+                                      selectedSize = size;
+                                    });
+                                  },
+                                );
+                              }).toList(),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                '${eachproduct['name']} added to cart',
+                      // Price Tag
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 24,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.teal.shade400,
+                              Colors.teal.shade700,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.teal.shade100,
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Price",
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 18,
+                                color: Colors.white,
                               ),
                             ),
-                          );
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Error: ${e.toString()}')),
-                          );
-                        }
-                      },
-                      icon: Icons.shopping_cart_outlined,
-                      color: Colors.orange,
-                      textcolor: Colors.white,
-                    ),
+                            Text(
+                              "৳ ${product['price']}",
+                              style: const TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      // Action Buttons
+                      Row(
+                        children: [
+                          Expanded(
+                            child: MyButton(
+                              text: "Add to Cart",
+                              onPressed: () async {
+                                try {
+                                  await CartService().addToCart(
+                                    categoryId: widget.uniqueId,
+                                    productId: product.id,
+                                    productName: product['name'],
+                                    price: product['price'],
+                                    imageUrl: product['imageUrl'],
+                                  );
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        '${product['name']} added to cart',
+                                      ),
+                                      backgroundColor: Colors.teal.shade600,
+                                    ),
+                                  );
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Error: ${e.toString()}'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: Icons.shopping_cart,
+                              color: Colors.orange,
+                              textcolor: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: MyButton(
+                              text: "Buy Now",
+                              onPressed: () {
+                                showCardPaymentDialog(
+                                  context,
+                                  product['price'],
+                                );
+                              },
+                              icon: Icons.shopping_bag,
+                              color: Colors.teal,
+                              textcolor: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 16),
+
+                      Center(
+                        child: MyButton(
+                          text: "Close",
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: Icons.close,
+                          color: Colors.redAccent,
+                          textcolor: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                    ],
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: MyButton(
-                      text: "Buy Now",
-                      onPressed: () {
-                        showCardPaymentDialog(context, eachproduct['price']);
-                      },
-                      icon: Icons.shopping_bag,
-                      color: Colors.teal,
-                      textcolor: Colors.white,
-                    ),
-                  ),
-                ],
+                ),
               ),
-
-              const SizedBox(height: 20),
-
-              MyButton(
-                text: "Close",
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Icons.close,
-
-                color: Colors.redAccent,
-                textcolor: Colors.white,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _buildInfoTile(IconData icon, String label, String value) {
-    return Column(
-      children: [
-        Icon(icon, color: Colors.teal, size: 30),
-        const SizedBox(height: 6),
-        Text(
-          label,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 12, fontWeight: FontWeight.w600),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey[800],
+    return Container(
+      width: 110,
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.teal.shade100,
+            blurRadius: 6,
+            offset: const Offset(0, 3),
           ),
-        ),
-      ],
+        ],
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: Colors.teal, size: 28),
+          const SizedBox(height: 6),
+          Text(
+            label,
+            style: const TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Text(
+              value,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey.shade800,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
