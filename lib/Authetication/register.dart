@@ -78,130 +78,151 @@ class _RegisterState extends State<Register>
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.teal.shade50,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: Column(
-                children: [
-                  Hero(
-                    tag: 'shoeHero',
-                    child: Image.asset('assets/images/high-heels.png', height: 150),
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: const Color(0xFF093949),
+    body: SafeArea(
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Column(
+              children: [
+                Hero(
+                  tag: 'shoeHero',
+                  child: Image.asset('assets/images/shoes.png', height: 160),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Create Account",
+                  style: TextStyle(
+                    fontSize: 44,
+                    fontFamily: 'Yesteryear',
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFCD8B4),
+                    letterSpacing: 1,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Create Account",
-                    style: const TextStyle(
-                      fontSize: 34,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      color: Colors.teal,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        MyTextForm(
+                ),
+                const SizedBox(height: 25),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      
+                      MyTextForm(
+                        labeltext: "*Name",
+                        controller: name,
+                        icon: const Icon(Icons.person, color: Color(0xFFFCD8B4)),
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextForm(
+                        labeltext: "*Phone",
+                        controller: phone,
+                        inputType: TextInputType.phone,
+                        icon: const Icon(Icons.call, color: Color(0xFFFCD8B4)),
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: dob,
+                        readOnly: true,
+                        style: const TextStyle(
+                          color: Color(0xFFD5A983),
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        decoration: const InputDecoration(
+                          suffixIcon: Icon(Icons.calendar_month, color: Color(0xFFFCD8B4)),
+                          labelText: "Date of Birth",
+                          labelStyle: TextStyle(
+                            color: Color(0xFFFCD8B4),
+                            fontFamily: 'Poppins',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          filled: true,
+                          fillColor: Colors.white10,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xFFFCD8B4), width: 2),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                        ),
+                        onTap: () => selectDate(context, dob),
+                      ),
+                      const SizedBox(height: 10),
+                      MyTextForm(
                           labeltext: "*Email",
                           controller: email,
-                          icon: const Icon(Icons.mail),
-                        ),
-                        const SizedBox(height: 10),
-                        MyTextForm(
-                          labeltext: "*Name",
-                          controller: name,
-                          icon: const Icon(Icons.person),
-                        ),
-                        const SizedBox(height: 10),
-                        MyTextForm(
-                          labeltext: "*Phone",
-                          controller: phone,
-                          inputType: TextInputType.phone,
-                          icon: const Icon(Icons.call),
-                        ),
-                        const SizedBox(height: 10),
-                        TextFormField(
-                          controller: dob,
-                          readOnly: true,
-                          decoration: const InputDecoration(
-                            suffixIcon: Icon(Icons.calendar_month),
-                            labelText: "Date of Birth",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                            ),
+                          icon: const Icon(
+                            Icons.mail,
+                            color: Color(0xFFFCD8B4),
                           ),
-                          onTap: () => selectDate(context, dob),
                         ),
                         const SizedBox(height: 10),
-                        MyTextForm(
-                          labeltext: "*Password",
-                          controller: password,
-                          obscureText: true,
-                          icon: const Icon(Icons.lock),
-                        ),
-                        const SizedBox(height: 16),
-                        MyButton(
-                          text: "Sign Up",
-                          //height: 60,
-                          width: 320,
-                          color: Colors.teal,
-                          fontsize: 17,
-                          icon: Icons.person_add,
-                          textcolor: Colors.white,
-                          buttonBlur: 0.5,
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              register();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Already have an account?",
-                        style:  const TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w300,
-                          color: Colors.deepOrangeAccent,
-                        ),
+                      MyTextForm(
+                        labeltext: "*Password",
+                        controller: password,
+                        obscureText: true,
+                        icon: const Icon(Icons.lock, color: Color(0xFFFCD8B4)),
                       ),
-                      GestureDetector(
-                        onTap: widget.onTap,
-                        child: Text(
-                          " Login Now",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green,
-                          ),
-                        ),
+                      const SizedBox(height: 16),
+                      MyButton(
+                        text: "Sign Up",
+                        width: 320,
+                        color: const Color(0xFFD5A983),
+                        fontsize: 17,
+                        icon: Icons.person_add,
+                        iconColor: const Color(0xFF35281C),
+                        textcolor: const Color(0xFF35281C),
+                        buttonBlur: 0.5,
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            register();
+                          }
+                        },
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w300,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: const Text(
+                        " Login Now",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFCD8B4),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

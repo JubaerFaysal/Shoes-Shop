@@ -15,14 +15,22 @@ class Product extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 95,),
-          height: 220,
+          height: 230,
           width: 280,
          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [const Color.fromARGB(255, 236, 251, 251), Colors.teal.shade200],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+            // gradient: LinearGradient(
+            //   colors: [const Color.fromARGB(255, 236, 251, 251), Colors.teal.shade200],
+            //   begin: Alignment.topLeft,
+            //   end: Alignment.bottomRight,
+            // ),
+            color: Color.fromARGB(255, 13, 105, 135),
+             boxShadow: [
+              BoxShadow(
+                color: Color(0xFFFCD8B4),
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
             borderRadius: BorderRadius.circular(16),
           ),
         ),
@@ -44,7 +52,7 @@ class Product extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
                 fontFamily: 'Poppins',
-                color: Color.fromARGB(255, 27, 76, 44),
+                color: Color(0xFFFCD8B4),
               ),
             ),
             Padding(
@@ -58,7 +66,7 @@ class Product extends StatelessWidget {
                       fontWeight: FontWeight.w600,    
                       fontSize: 17,
                       fontFamily: 'Poppins',
-                      color: Color.fromARGB(255, 27, 76, 44),
+                      color: Color(0xFFFCD8B4),
                     ),
                   ),
                   Text(
@@ -67,7 +75,7 @@ class Product extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 17,
                       fontFamily: 'Poppins',
-                      color: Color.fromARGB(255, 27, 76, 44),
+                      color: Color(0xFFFCD8B4),
                     ),
                   ),  
                 ]
@@ -91,7 +99,9 @@ class Product extends StatelessWidget {
 
               },
               text: "View details",
-              color: Colors.teal,
+              color: Color(0xFFFCD8B4),
+              iconColor: Color(0xFF35281C),
+              textcolor: Color(0xFF35281C),
               icon: Icons.remove_red_eye,
             ),
           ],

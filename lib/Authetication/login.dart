@@ -63,103 +63,106 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.teal.shade50,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: Column(
-                children: [
-                  Hero(
-                    tag: 'shoeHero',
-                    child: Image.asset('assets/images/high-heels.png', height: 160),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: const Color(0xFF093949),
+    body: SafeArea(
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Column(
+              children: [
+                Hero(
+                  tag: 'shoeHero',
+                  child: Image.asset('assets/images/shoes.png', height: 160),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Happy to See You",
+                  style: TextStyle(
+                    fontSize: 44,
+                    fontFamily: 'Yesteryear',
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFFCD8B4),
+                    letterSpacing: 1,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    "Welcome Back",
-                    style: const TextStyle(
-                      fontSize: 34,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      color: Colors.teal,
-                      letterSpacing: 1,
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        MyTextForm(
-                          labeltext: "Email",
-                          controller: email,
-                          obscureText: false,
-                          icon: const Icon(Icons.mail),
-                        ),
-                        const SizedBox(height: 16),
-                        MyTextForm(
-                          labeltext: "Password",
-                          controller: password,
-                          obscureText: true,
-                          icon: const Icon(Icons.lock),
-                        ),
-                        const SizedBox(height: 20),
-                        MyButton(
-                          text: "Login",
-                         // height: 50,
-                         width: 320,
-                          color: Colors.teal,
-                          fontsize: 17,
-                          icon: Icons.login,
-                          textcolor: Colors.white,
-                          buttonBlur: 0.5,
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              login();
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                const SizedBox(height: 25),
+                Form(
+                  key: formKey,
+                  child: Column(
                     children: [
-                      Text(
-                        "Don't have an account?",
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w300,
-                          color: Colors.deepOrangeAccent,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: widget.onTap,
-                        child: Text(
-                          " Register Now",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                      MyTextForm(
+                        labeltext: "Email",
+                        controller: email,
+                        obscureText: false,
+                        icon: const Icon(Icons.mail, color: Color(0xFFFCD8B4),
                           ),
-                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      MyTextForm(
+                        labeltext: "Password",
+                        controller: password,
+                        obscureText: true,
+                        icon: const Icon(Icons.lock, color: Color(0xFFFCD8B4),
+                          ),
+                      ),
+                      const SizedBox(height: 20),
+                      MyButton(
+                        text: "Login",
+                        width: 320,
+                        
+                        color: const Color(0xFFD5A983),
+                        fontsize: 17,
+                        icon: Icons.login,
+                        textcolor: const Color(0xFF35281C),
+                        iconColor: const Color(0xFF35281C),
+                        buttonBlur: 0.6,
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            login();
+                          }
+                        },
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w300,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: const Text(
+                        " Register Now",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFCD8B4),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

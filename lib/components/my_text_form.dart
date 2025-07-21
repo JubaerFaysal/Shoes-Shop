@@ -25,13 +25,23 @@ class MyTextForm extends StatelessWidget {
       controller: controller,
       keyboardType: inputType,
       obscureText: obscureText??false,
+      style: const TextStyle(
+        color: Color(0xFFFCD8B4),
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.teal, width: 2),
+            borderSide: BorderSide(color: Color(0xFFFCD8B4), width: 2),
             borderRadius: BorderRadius.all(Radius.circular(12))),
         suffixIcon: icon,
         labelText: labeltext,
-        labelStyle: const TextStyle(color: Colors.black),
+        labelStyle: const TextStyle(color: Color(0xFFFCD8B4),
+            fontFamily: 'Poppins',
+            fontSize: 16,
+            fontWeight: FontWeight.w500),
         border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12))),
       ),

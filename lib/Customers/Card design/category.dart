@@ -18,45 +18,66 @@ class Category extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          //padding: const EdgeInsets.all(8),
-          margin: const EdgeInsets.only(top: 40, left: 70, right: 10,bottom: 15),
-          height: 120,
-          width: double.infinity,
+          margin: const EdgeInsets.only(
+            top: 40,
+            left: 70,
+            right: 15,
+            bottom: 15,
+          ),
+          height: 130,
           decoration: BoxDecoration(
-            color: Colors.teal.shade200,
-            borderRadius: BorderRadius.circular(12),
+            color: const Color.fromARGB(255, 13, 105, 135),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFFFCD8B4),
+                blurRadius: 4,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
         ),
         Positioned(
           left: 15,
-          child: Image.network(
-            imageUrl,
-            height: 180,
-            width: 180,
-            fit: BoxFit.cover,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              imageUrl,
+              height: 180,
+              width: 180,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         Positioned(
-          left: 200,
-          top: 50,
+          left: 210,
+          top: 55,
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
-             
               Text(
                 name,
-                style:  TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.teal.shade800,
+                style: const TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFFCD8B4),
                 ),
               ),
+              const SizedBox(height: 4),
               Text(
                 description,
-                style: const TextStyle(fontSize: 14.0, color: Colors.black54),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                  color: Colors.white70,
+                ),
               ),
-               MyButton(
+              const SizedBox(height: 10),
+              MyButton(
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -67,15 +88,18 @@ class Category extends StatelessWidget {
                 },
                 icon: Icons.remove_red_eye,
                 text: "Explore",
-                color: Colors.teal,
+                width: 120,
+                height: 40,
+                fontsize: 14,
+                color: const Color(0xFFFCD8B4),
+                iconColor: const Color(0xFF35281C),
+                textcolor: const Color(0xFF35281C),
+                buttonBlur: 0.4,
               ),
-              
             ],
           ),
         ),
-       
       ],
     );
-   
   }
 }

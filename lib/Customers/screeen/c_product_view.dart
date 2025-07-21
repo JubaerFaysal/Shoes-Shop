@@ -20,9 +20,9 @@ class _CProductViewState extends State<CProductView> {
         .doc(widget.uniqueId);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3FDFD),
+      backgroundColor: const Color.fromARGB(255, 11, 62, 79),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF3FDFD),
+        backgroundColor: const Color.fromARGB(255, 11, 62, 79),
         elevation: 0,
         title: const Text(
           'Explore Products',
@@ -30,12 +30,12 @@ class _CProductViewState extends State<CProductView> {
             fontSize: 24,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
-            color: Colors.teal,
+            color: Color(0xFFFCD8B4),
           ),
         ),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.chevron_left, color: Colors.teal, size: 35),
+          icon: Icon(Icons.chevron_left, color: Color(0xFFFCD8B4), size: 35),
         ),
         actions: [
           IconButton(
@@ -46,9 +46,9 @@ class _CProductViewState extends State<CProductView> {
               );
             },
             icon: const Icon(
-              Icons.shopping_cart_outlined,
+              Icons.shopping_cart,
               size: 30,
-              color: Colors.teal,
+              color: Color(0xFFFCD8B4),
             ),
           ),
         ],
@@ -73,7 +73,8 @@ class _CProductViewState extends State<CProductView> {
             mainAxisSpacing: 20,
             itemCount: productList.length + 1,
             itemBuilder: (context, index) {
-              if (index == 0) {
+
+              if (index == productList.length) {
                 return Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
@@ -82,14 +83,14 @@ class _CProductViewState extends State<CProductView> {
                     style: TextStyle(
                       fontFamily: 'Yesteryear',
                       fontSize: 38,
-                      color: Colors.teal.shade700,
+                      color: Color(0xFFFCD8B4),
                       fontWeight: FontWeight.w500,
                       letterSpacing: 1.1,
                     ),
                   ),
                 );
               } else {
-                final product = productList[index - 1];
+                final product = productList[index ];
                 return Product(eachProduct: product, uniqueId: widget.uniqueId);
               }
             },

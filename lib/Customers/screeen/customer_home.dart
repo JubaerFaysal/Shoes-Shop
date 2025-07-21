@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_business/Customers/Card%20design/category.dart';
 import 'package:shoes_business/Customers/screeen/customer_drawer.dart';
 import 'package:shoes_business/Customers/screeen/my_cart.dart';
-import 'package:shoes_business/components/my_dialog_box.dart';
 
 class CustomerHome extends StatefulWidget {
   const CustomerHome({super.key});
@@ -14,60 +12,34 @@ class CustomerHome extends StatefulWidget {
 }
 
 class _CustomerHomeState extends State<CustomerHome> {
-  DocumentSnapshot? customerSnapshot;
-  bool isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    fetchCustomerData();
-  }
-
-  Future<void> fetchCustomerData() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final snapshot =
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .get();
-      setState(() {
-        customerSnapshot = snapshot;
-        isLoading = false;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading || customerSnapshot == null) {
-      return const Scaffold(body: Center(child: MyDialogBox(
-        content: 'Loading customer data..',
-      )));
-    }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF3FDFD),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF3FDFD),
+      backgroundColor: const Color.fromARGB(255, 11, 62, 79),
+    appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 11, 62, 79),
+        elevation: 0,
+        centerTitle: true,
         title: const Text(
-          "Customers",
+          "Explore Categories",
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 22,
             fontFamily: 'Poppins',
-            color: Colors.teal,
-            letterSpacing: 1.1,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFCD8B4),
           ),
         ),
-         leading: Builder(
+        leading: Builder(
           builder:
               (context) => IconButton(
-                icon:  Icon(Icons.menu, color: Colors.teal),
+                icon: const Icon(Icons.menu, color: Color(0xFFFCD8B4)),
                 onPressed: () => Scaffold.of(context).openDrawer(),
               ),
         ),
-         actions: [
+        actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
@@ -77,13 +49,14 @@ class _CustomerHomeState extends State<CustomerHome> {
             },
             icon: const Icon(
               Icons.shopping_cart_outlined,
-              size: 30,
-              color: Colors.teal,
+              size: 28,
+              color: Color(0xFFFCD8B4),
             ),
           ),
         ],
       ),
-      drawer: CustomerDrawer(customerSnapshot: customerSnapshot!),
+
+      drawer: CustomerDrawer(),
       body: StreamBuilder<QuerySnapshot>(
         stream:
             FirebaseFirestore.instance

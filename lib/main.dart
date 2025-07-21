@@ -1,12 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shoes_business/Authetication/auth_gate.dart';
+import 'package:shoes_business/Provider/customer_provider.dart';
+import 'package:shoes_business/Provider/splash_provider.dart';
 import 'package:shoes_business/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => SplashProvider()),
+      ChangeNotifierProvider(create: (_) => CustomerProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,8 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Shoes Business',
-      home: AuthGate()
+      home: AuthGate(),
     );
   }
 }
-

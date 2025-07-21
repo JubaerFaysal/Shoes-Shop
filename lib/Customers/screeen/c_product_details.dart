@@ -36,18 +36,20 @@ class _CProductDetailsState extends State<CProductDetails> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-       backgroundColor: const Color(0xFFF3FDFD),
+       backgroundColor: const Color.fromARGB(255, 26, 144, 183),
      
-      body: SafeArea(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 55),
         child: Column(
           children: [
             Text(
-              product['name'],
+              "Details of ${product['name']}",
               style: const TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 26,
-                color: Colors.teal,
+                fontFamily: 'yesteryear',
+                fontSize: 30,
+                color: Color(0xFFFCD8B4),
                 fontWeight: FontWeight.w600,
+                letterSpacing: 1.2
               ),
             ),
             // Product Image with Hero
@@ -61,21 +63,21 @@ class _CProductDetailsState extends State<CProductDetails> {
               ),
             ),
             const SizedBox(height: 16),
-
+        
             // Glass Info Cards
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 13, 105, 135),
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(28),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.teal.shade200,
-                      blurRadius: 12,
-                      offset: const Offset(0, -6),
+                      color: Color(0xFFFCD8B4),
+                      blurRadius: 4,
+                      offset: const Offset(0, -4),
                     ),
                   ],
                 ),
@@ -113,9 +115,9 @@ class _CProductDetailsState extends State<CProductDetails> {
                           ],
                         ),
                       ),
-
+        
                       const SizedBox(height: 24),
-
+        
                       // Sizes
                       if (sizes.isNotEmpty) ...[
                         Text(
@@ -123,7 +125,7 @@ class _CProductDetailsState extends State<CProductDetails> {
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
-                            color: Colors.teal.shade900,
+                            color: Color(0xFFFCD8B4),
                             fontSize: 16,
                           ),
                         ),
@@ -136,8 +138,8 @@ class _CProductDetailsState extends State<CProductDetails> {
                                 return ChoiceChip(
                                   label: Text(size.toString()),
                                   selected: isSelected,
-                                  selectedColor: Colors.teal.shade300,
-                                  backgroundColor: Colors.teal.shade100,
+                                  selectedColor: Color(0xFFFCD8B4),
+                                  backgroundColor: Color.fromARGB(255, 253, 228, 203),
                                   onSelected: (_) {
                                     setState(() {
                                       selectedSize = size;
@@ -148,7 +150,7 @@ class _CProductDetailsState extends State<CProductDetails> {
                         ),
                         const SizedBox(height: 24),
                       ],
-
+        
                       // Price Tag
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -156,18 +158,19 @@ class _CProductDetailsState extends State<CProductDetails> {
                           horizontal: 24,
                         ),
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.teal.shade400,
-                              Colors.teal.shade700,
-                            ],
-                          ),
+                          // gradient: LinearGradient(
+                          //   colors: [
+                          //     Color.fromARGB(255, 7, 94, 123),
+                          //     Color.fromARGB(255, 17, 86, 109),
+                          //   ],
+                          // ),
+                          color: Color.fromARGB(255, 26, 144, 183),
                           borderRadius: BorderRadius.circular(15),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.teal.shade100,
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
+                              color: Color(0xFFFCD8B4),
+                              blurRadius: 0,
+                              offset: const Offset(0, 2),
                             ),
                           ],
                         ),
@@ -179,7 +182,7 @@ class _CProductDetailsState extends State<CProductDetails> {
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 18,
-                                color: Colors.white,
+                                color: Color(0xFFFCD8B4),
                               ),
                             ),
                             Text(
@@ -188,15 +191,15 @@ class _CProductDetailsState extends State<CProductDetails> {
                                 fontFamily: 'Poppins',
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: Color(0xFFFCD8B4),
                               ),
                             ),
                           ],
                         ),
                       ),
-
+        
                       const SizedBox(height: 24),
-
+        
                       // Action Buttons
                       Row(
                         children: [
@@ -212,7 +215,7 @@ class _CProductDetailsState extends State<CProductDetails> {
                                     price: product['price'],
                                     imageUrl: product['imageUrl'],
                                   );
-
+        
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -236,25 +239,24 @@ class _CProductDetailsState extends State<CProductDetails> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          Expanded(
-                            child: MyButton(
-                              text: "Buy Now",
-                              onPressed: () {
-                                showCardPaymentDialog(
-                                  context,
-                                  product['price'],
-                                );
-                              },
-                              icon: Icons.shopping_bag,
-                              color: Colors.teal,
-                              textcolor: Colors.white,
-                            ),
+                          MyButton(
+                            text: "Buy Now",
+                            onPressed: () {
+                              showCardPaymentDialog(
+                                context,
+                                product['price'],
+                              );
+                            },
+                            icon: Icons.shopping_bag,
+                            color: Color(0xFFFCD8B4),
+                            iconColor: Color(0xFF35281C),
+                            textcolor: Color(0xFF35281C),
                           ),
                         ],
                       ),
-
+        
                       const SizedBox(height: 16),
-
+        
                       Center(
                         child: MyButton(
                           text: "Close",
@@ -281,7 +283,7 @@ class _CProductDetailsState extends State<CProductDetails> {
       width: 110,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color.fromARGB(255, 26, 144, 183),
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
@@ -293,13 +295,14 @@ class _CProductDetailsState extends State<CProductDetails> {
       ),
       child: Column(
         children: [
-          Icon(icon, color: Colors.teal, size: 28),
+          Icon(icon, color: Color(0xFFFCD8B4), size: 28),
           const SizedBox(height: 6),
           Text(
             label,
             style: const TextStyle(
               fontFamily: 'Poppins',
               fontSize: 12,
+              color: Color(0xFFFCD8B4),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -312,7 +315,7 @@ class _CProductDetailsState extends State<CProductDetails> {
                 fontFamily: 'Poppins',
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
-                color: Colors.grey.shade800,
+                color: Color(0xFFFCD8B4),
               ),
             ),
           ),
