@@ -92,7 +92,7 @@ Widget build(BuildContext context) {
               children: [
                 Hero(
                   tag: 'shoeHero',
-                  child: Image.asset('assets/images/shoes.png', height: 160),
+                  child: Image.asset('assets/images/high-heel-2.png', height: 160),
                 ),
                 const SizedBox(height: 16),
                 const Text(

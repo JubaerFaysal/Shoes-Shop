@@ -12,19 +12,22 @@ class History extends StatelessWidget {
   Widget build(BuildContext context) {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 7, 42, 54),
       appBar: AppBar(
-        backgroundColor: Colors.teal.shade500,
+        backgroundColor: const Color.fromARGB(255, 7, 42, 54),
         title: Text(
           'History',
           style: TextStyle(
             fontFamily: 'Poppins',
-            fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFCD8B4),
+          ),
         ),
-         leading: IconButton(
+        leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.chevron_left, color: Colors.white, size: 35),
+          icon: Icon(Icons.chevron_left, color: Color(0xFFFCD8B4), size: 35),
         ),
-        
       ),
       body: StreamBuilder(
         stream:
@@ -52,7 +55,7 @@ class History extends StatelessWidget {
                   horizontal: 16,
                   vertical: 10,
                 ),
-                color: Colors.teal.shade100,
+                color: const Color.fromARGB(255, 13, 105, 135),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -67,46 +70,56 @@ class History extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                   title: Text(
+                  title: Text(
                     item['productName'],
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFFCD8B4),
+                    ),
                   ),
-                  subtitle: Text('৳ ${item['price']} x ${item['quantity']}'),
+                  subtitle: Text(
+                    '৳ ${item['price']} x ${item['quantity']}',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFFCD8B4),
+                    ),
+                  ),
                   trailing: IconButton(
-                              icon: const Icon(Icons.visibility),
-                              onPressed: () async {
-                                final productSnap =
-                                    await FirebaseFirestore.instance
-                                        .collection('Product_Category')
-                                        .doc(item['categoryId'])
-                                        .collection('Products')
-                                        .doc(item['productId'])
-                                        .get();
+                    icon: const Icon(
+                      Icons.visibility,
+                      color: Color(0xFFFCD8B4),
+                    ),
+                    onPressed: () async {
+                      final productSnap =
+                          await FirebaseFirestore.instance
+                              .collection('Product_Category')
+                              .doc(item['categoryId'])
+                              .collection('Products')
+                              .doc(item['productId'])
+                              .get();
 
-                                final productData = productSnap.data();
+                      final productData = productSnap.data();
 
-                                if (productData != null) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (context) => CProductDetails(
-                                            eachproduct: productSnap,
-                                            uniqueId: item['categoryId'],
-                                          ),
-                                    ),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Product not found."),
-                                    ),
-                                  );
-                                }
-                              },
-                            ),
+                      if (productData != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => CProductDetails(
+                                  eachproduct: productSnap,
+                                  uniqueId: item['categoryId'],
+                                ),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Product not found.")),
+                        );
+                      }
+                    },
+                  ),
                 ),
               );
             },

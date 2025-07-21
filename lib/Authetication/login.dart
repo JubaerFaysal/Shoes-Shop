@@ -77,7 +77,7 @@ Widget build(BuildContext context) {
               children: [
                 Hero(
                   tag: 'shoeHero',
-                  child: Image.asset('assets/images/shoes.png', height: 160),
+                  child: Image.asset('assets/images/002-high-heel-1.png', height: 160),
                 ),
                 const SizedBox(height: 16),
                 const Text(
@@ -110,7 +110,19 @@ Widget build(BuildContext context) {
                         icon: const Icon(Icons.lock, color: Color(0xFFFCD8B4),
                           ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 8),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(onPressed: (){}, child: Text("Forgot Password?",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 255, 196, 138),
+                            fontSize: 16,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )),
+                      ),
+                      //const SizedBox(height: 8),
                       MyButton(
                         text: "Login",
                         width: 320,

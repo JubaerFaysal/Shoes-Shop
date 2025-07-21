@@ -36,8 +36,8 @@ class _CProductDetailsState extends State<CProductDetails> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-       backgroundColor: const Color.fromARGB(255, 26, 144, 183),
-     
+      backgroundColor: const Color.fromARGB(255, 7, 42, 54),
+
       body: Padding(
         padding: const EdgeInsets.only(top: 55),
         child: Column(
@@ -49,35 +49,62 @@ class _CProductDetailsState extends State<CProductDetails> {
                 fontSize: 30,
                 color: Color(0xFFFCD8B4),
                 fontWeight: FontWeight.w600,
-                letterSpacing: 1.2
+                letterSpacing: 1.2,
               ),
             ),
+            const SizedBox(height: 20),
             // Product Image with Hero
-            Hero(
-              tag: product['imageUrl'],
-              child: Image.network(
-                product['imageUrl'],
-                 height: 300,
-                // width: double.infinity,
-                fit: BoxFit.cover,
+            SizedBox(
+              height: 320,
+              child: Stack(
+                children: [
+                  Positioned(
+                    right: 70,
+                    top: 110,
+                    child: Container(
+                      height: 280,
+                      width: 280,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 13, 105, 135),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(150),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 80,
+                    top: 20,
+                    child: Hero(
+                      tag: product['imageUrl'],
+                      child: Image.network(
+                        product['imageUrl'],
+                        height: 280,
+                        width: 280,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-        
+
+            //const SizedBox(height: 10),
+
             // Glass Info Cards
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 13, 105, 135),
+                  color: Color.fromARGB(255, 9, 61, 77),
                   borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(28),
+                    top: Radius.circular(32),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0xFFFCD8B4),
-                      blurRadius: 4,
-                      offset: const Offset(0, -4),
+                      color: Colors.teal.shade100,
+                      blurRadius: 2,
+                      offset: const Offset(0, -2),
                     ),
                   ],
                 ),
@@ -115,9 +142,9 @@ class _CProductDetailsState extends State<CProductDetails> {
                           ],
                         ),
                       ),
-        
+
                       const SizedBox(height: 24),
-        
+
                       // Sizes
                       if (sizes.isNotEmpty) ...[
                         Text(
@@ -138,8 +165,13 @@ class _CProductDetailsState extends State<CProductDetails> {
                                 return ChoiceChip(
                                   label: Text(size.toString()),
                                   selected: isSelected,
-                                  selectedColor: Color(0xFFFCD8B4),
-                                  backgroundColor: Color.fromARGB(255, 253, 228, 203),
+                                  selectedColor: Color.fromARGB(
+                                    255,
+                                    245,
+                                    214,
+                                    184,
+                                  ),
+                                  backgroundColor: Colors.teal.shade100,
                                   onSelected: (_) {
                                     setState(() {
                                       selectedSize = size;
@@ -150,7 +182,7 @@ class _CProductDetailsState extends State<CProductDetails> {
                         ),
                         const SizedBox(height: 24),
                       ],
-        
+
                       // Price Tag
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -164,15 +196,15 @@ class _CProductDetailsState extends State<CProductDetails> {
                           //     Color.fromARGB(255, 17, 86, 109),
                           //   ],
                           // ),
-                          color: Color.fromARGB(255, 26, 144, 183),
+                          color: Color.fromARGB(255, 7, 42, 54),
                           borderRadius: BorderRadius.circular(15),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFFFCD8B4),
-                              blurRadius: 0,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Colors.teal.shade100,
+                          //     blurRadius: 2,
+                          //     offset: const Offset(0, 1),
+                          //   ),
+                          // ],
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -197,9 +229,9 @@ class _CProductDetailsState extends State<CProductDetails> {
                           ],
                         ),
                       ),
-        
+
                       const SizedBox(height: 24),
-        
+
                       // Action Buttons
                       Row(
                         children: [
@@ -215,7 +247,7 @@ class _CProductDetailsState extends State<CProductDetails> {
                                     price: product['price'],
                                     imageUrl: product['imageUrl'],
                                   );
-        
+
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -234,29 +266,27 @@ class _CProductDetailsState extends State<CProductDetails> {
                                 }
                               },
                               icon: Icons.shopping_cart,
-                              color: Colors.orange,
-                              textcolor: Colors.white,
+                              color: const Color.fromARGB(255, 254, 154, 66),
+                              textcolor: Color(0xFF35281C),
+                              iconColor: Color(0xFF35281C),
                             ),
                           ),
                           const SizedBox(width: 12),
                           MyButton(
                             text: "Buy Now",
                             onPressed: () {
-                              showCardPaymentDialog(
-                                context,
-                                product['price'],
-                              );
+                              showCardPaymentDialog(context, product['price']);
                             },
                             icon: Icons.shopping_bag,
-                            color: Color(0xFFFCD8B4),
+                            color: Color.fromARGB(255, 255, 192, 137),
                             iconColor: Color(0xFF35281C),
                             textcolor: Color(0xFF35281C),
                           ),
                         ],
                       ),
-        
+
                       const SizedBox(height: 16),
-        
+
                       Center(
                         child: MyButton(
                           text: "Close",
@@ -283,15 +313,15 @@ class _CProductDetailsState extends State<CProductDetails> {
       width: 110,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 26, 144, 183),
+        color: Color.fromARGB(255, 7, 42, 54),
         borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.teal.shade100,
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.teal.shade100,
+        //     blurRadius: 2,
+        //     offset: const Offset(0, 1),
+        //   ),
+        // ],
       ),
       child: Column(
         children: [

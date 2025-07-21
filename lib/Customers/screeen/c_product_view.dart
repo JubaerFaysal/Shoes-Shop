@@ -20,9 +20,9 @@ class _CProductViewState extends State<CProductView> {
         .doc(widget.uniqueId);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 11, 62, 79),
+      backgroundColor: const Color.fromARGB(255, 7, 42, 54),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 11, 62, 79),
+        backgroundColor: const Color.fromARGB(255, 7, 42, 54),
         elevation: 0,
         title: const Text(
           'Explore Products',
@@ -68,8 +68,8 @@ class _CProductViewState extends State<CProductView> {
 
           return MasonryGridView.count(
             crossAxisCount: 2,
-            padding: const EdgeInsets.only(right: 10,left: 10),
-            crossAxisSpacing: 15,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 20,
             mainAxisSpacing: 20,
             itemCount: productList.length + 1,
             itemBuilder: (context, index) {

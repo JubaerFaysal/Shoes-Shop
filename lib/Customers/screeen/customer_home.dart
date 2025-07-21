@@ -18,9 +18,9 @@ class _CustomerHomeState extends State<CustomerHome> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 11, 62, 79),
+      backgroundColor: const Color.fromARGB(255, 7, 42, 54),
     appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 11, 62, 79),
+        backgroundColor: const Color.fromARGB(255, 7, 42, 54),
         elevation: 0,
         centerTitle: true,
         title: const Text(
@@ -48,7 +48,7 @@ class _CustomerHomeState extends State<CustomerHome> {
               );
             },
             icon: const Icon(
-              Icons.shopping_cart_outlined,
+              Icons.shopping_cart,
               size: 28,
               color: Color(0xFFFCD8B4),
             ),

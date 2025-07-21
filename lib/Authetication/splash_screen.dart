@@ -162,7 +162,7 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
                   child: Hero(
                     tag: 'shoeHero',
                     child: Image.asset(
-                      'assets/images/high-heels.png',
+                      'assets/images/002-high-heel-1.png',
                       height: 150,
                     ),
                   ),
@@ -236,6 +236,7 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
                   icon: Icons.shopify,
                   iconColor: const Color.fromARGB(255, 53, 40, 28),
                   fontsize: 16,
+                  
                 ),
               ),
             ),

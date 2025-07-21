@@ -158,7 +158,7 @@ class CategoryMethod {
   /// Delete category by ID
   static Future<void> deleteProductCategory(String uniqueId) async {
     try {
-      await _firestore.collection('categories').doc(uniqueId).delete();
+      await _firestore.collection('Product_Category').doc(uniqueId).delete();
     } catch (e) {
       debugPrint('Delete failed: $e');
     }

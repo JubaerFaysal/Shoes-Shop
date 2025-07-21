@@ -17,6 +17,7 @@ class AdminHome extends StatelessWidget {
       drawer: Drawer(
         child: Column(
           children: [
+            SizedBox(height: 50,),
             MyButton(
               text: "Log Out",
               onPressed: () => FirebaseAuth.instance.signOut(),

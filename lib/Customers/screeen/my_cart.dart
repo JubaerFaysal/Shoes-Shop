@@ -26,19 +26,23 @@ class _MyCartPageState extends State<MyCartPage> {
         .collection('Cart');
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 7, 42, 54),
+
       appBar: AppBar(
-        backgroundColor: Colors.teal.shade500,
+        backgroundColor: const Color.fromARGB(255, 7, 42, 54),
         title: Text(
           'My Cart',
           style: TextStyle(
             fontFamily: 'Poppins',
-            fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFCD8B4),
+          ),
         ),
-         leading: IconButton(
+        leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.chevron_left, color: Colors.white, size: 35),
+          icon: Icon(Icons.chevron_left, color: Color(0xFFFCD8B4), size: 35),
         ),
-        
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: cartRef.orderBy('timestamp', descending: true).snapshots(),
@@ -61,7 +65,12 @@ class _MyCartPageState extends State<MyCartPage> {
           }
 
           if (cartItems.isEmpty) {
-            return const Center(child: Text('Your cart is empty.'));
+            return const Center(child: Text('Your cart is empty.',
+                style:  TextStyle(
+                  color: Color(0xFFFCD8B4),
+                  fontFamily: 'Poppins',
+                ),
+              ));
           }
 
           return Column(
@@ -78,7 +87,7 @@ class _MyCartPageState extends State<MyCartPage> {
                         horizontal: 16,
                         vertical: 10,
                       ),
-                      color: Colors.teal.shade100,
+                      color: const Color.fromARGB(255, 13, 105, 135),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -98,16 +107,21 @@ class _MyCartPageState extends State<MyCartPage> {
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
+                            color: Color(0xFFFCD8B4)
                           ),
                         ),
                         subtitle: Text(
-                          '₹ ${data['price']} x ${data['quantity']}',
+                          '৳ ${data['price']} x ${data['quantity']}',
+                           style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFFCD8B4),
+                          ),
                         ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.visibility),
+                              icon: const Icon(Icons.visibility,color: Color(0xFFFCD8B4),),
                               onPressed: () async {
                                 final productSnap =
                                     await FirebaseFirestore.instance
@@ -143,12 +157,28 @@ class _MyCartPageState extends State<MyCartPage> {
                               icon: const Icon(Icons.delete, color: Colors.red),
                               onPressed: () async {
                                 final confirm = await showDialog<bool>(
+                                  
                                   context: context,
                                   builder:
                                       (context) => AlertDialog(
-                                        title: const Text("Remove Item"),
+                                        backgroundColor: const Color.fromARGB(
+                                          255,
+                                          7,
+                                          42,
+                                          54,
+                                        ),
+                                        title: const Text("Remove Item",
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xFFFCD8B4),
+                                          ),
+                                        ),
                                         content: const Text(
-                                          "Are you sure you want to remove this item from the cart?",
+                                          "Are you sure you want to remove this item from the cart?",style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFFFCD8B4),
+                                          ),
                                         ),
                                         actions: [
                                           TextButton(
@@ -157,7 +187,10 @@ class _MyCartPageState extends State<MyCartPage> {
                                                   context,
                                                   false,
                                                 ),
-                                            child: const Text("Cancel"),
+                                            child: const Text("Cancel",style: TextStyle(
+                                              color: Color(0xFFFCD8B4),
+                                              fontFamily: 'Poppins',
+                                            ),),
                                           ),
                                           TextButton(
                                             onPressed:
@@ -168,7 +201,8 @@ class _MyCartPageState extends State<MyCartPage> {
                                             child: const Text(
                                               "Delete",
                                               style: TextStyle(
-                                                color: Colors.red,
+                                                color: Color.fromARGB(255, 255, 98, 0),
+                                                fontFamily: 'Poppins',
                                               ),
                                             ),
                                           ),
@@ -200,9 +234,9 @@ class _MyCartPageState extends State<MyCartPage> {
                   vertical: 15,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.teal.shade50,
+                  color: const Color.fromARGB(255, 13, 105, 135),
                   border: const Border(
-                    top: BorderSide(color: Colors.grey, width: 0.4),
+                    top: BorderSide(color:  Color(0xFFFCD8B4), width: 2),
                   ),
                 ),
                 child: Row(
@@ -214,7 +248,7 @@ class _MyCartPageState extends State<MyCartPage> {
                         fontFamily: 'Poppins',
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.teal.shade700,
+                        color: Color(0xFFFCD8B4),
                       ),
                     ),
                     ElevatedButton.icon(
@@ -285,7 +319,10 @@ class _MyCartPageState extends State<MyCartPage> {
                         );
 
                         if (!paymentSuccess) {
-                          myAleartDialog('Payment failed', context);
+                          myAleartDialog(
+                            "Payment failed. Please try again.",
+                            context,
+                          );
                           return;
                         }
 
@@ -335,8 +372,18 @@ class _MyCartPageState extends State<MyCartPage> {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
+                              backgroundColor:  Color.fromARGB(
+                                255,
+                                13,
+                                105,
+                                135,
+                              ),
                               content: Text(
                                 "Payment successful. Items moved to history.",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: Color(0xFFFCD8B4),
+                                ),
                               ),
                             ),
                           );
@@ -346,8 +393,8 @@ class _MyCartPageState extends State<MyCartPage> {
                       icon: const Icon(Icons.payment),
                       label: const Text("Buy Now"),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal.shade600,
-                        foregroundColor: Colors.white,
+                        backgroundColor: Color.fromARGB(255, 248, 195, 142),
+                        foregroundColor: const Color(0xFF35281C),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                           vertical: 12,

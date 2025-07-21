@@ -15,8 +15,8 @@ class Product extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 95,),
-          height: 230,
-          width: 280,
+          height: 240,
+         // width: 260,
          decoration: BoxDecoration(
             // gradient: LinearGradient(
             //   colors: [const Color.fromARGB(255, 236, 251, 251), Colors.teal.shade200],
@@ -27,7 +27,7 @@ class Product extends StatelessWidget {
              boxShadow: [
               BoxShadow(
                 color: Color(0xFFFCD8B4),
-                blurRadius: 5,
+                blurRadius: 2,
                 offset: const Offset(0, 3),
               ),
             ],
@@ -45,7 +45,7 @@ class Product extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             Text(
               eachProduct['name'],
               style: const TextStyle(
@@ -81,6 +81,7 @@ class Product extends StatelessWidget {
                 ]
               )
             ),
+            SizedBox(height: 10,),
             MyButton(
               onPressed: () {
                Navigator.push(
