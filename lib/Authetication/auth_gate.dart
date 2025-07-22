@@ -22,16 +22,17 @@ class AuthGate extends StatelessWidget {
     }
 
     final role = doc['role'];
-    if (role == 'admin') {
-      return const AdminHome();
-    } else {
+    if (role == 'customer') {
       return const CustomerHome();
+    } else {
+      return const AdminHome();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 9, 53, 68),
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {

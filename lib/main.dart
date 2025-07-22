@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_business/Authetication/auth_gate.dart';
+import 'package:shoes_business/Provider/cart_provider.dart';
 import 'package:shoes_business/Provider/customer_provider.dart';
 import 'package:shoes_business/Provider/splash_provider.dart';
 import 'package:shoes_business/firebase_options.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => SplashProvider()),
       ChangeNotifierProvider(create: (_) => CustomerProvider()),
+      ChangeNotifierProvider(create: (_) => CartProvider()..listenToCart()),
       ],
       child: const MyApp(),
     ),

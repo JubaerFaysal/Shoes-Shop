@@ -7,7 +7,6 @@ import 'package:shoes_business/Admin/Card%20Design/product_cart.dart';
 import 'package:shoes_business/Methods/product_method.dart';
 import 'package:shoes_business/components/my_button.dart';
 
-
 class ProductsView extends StatefulWidget {
   final String uniqueId;
   const ProductsView({super.key, required this.uniqueId});
@@ -27,60 +26,65 @@ class _ProductsViewState extends State<ProductsView> {
         .doc(widget.uniqueId);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 201, 225, 225),
+      backgroundColor: const Color.fromARGB(255, 7, 42, 54),
       appBar: AppBar(
-        title: const Text('Update Products'),
-        backgroundColor: const Color.fromARGB(255, 201, 225, 225),
-       
-      ),
-      body: SingleChildScrollView(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: products.collection('Products').snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            final productList = snapshot.data!.docs;
-
-            if (productList.isEmpty) {
-              return const Center(child: Text('No Products uploaded yet.'));
-            }
-
-            return MasonryGridView(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              primary: false,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 20,
-              gridDelegate:
-                  const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-              children: [
-                const Text(
-                  "Enjoy Your Shopping With Mudi",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 32,
-                    color: Color.fromARGB(255, 12, 169, 4),
-                  ),
-                ),
-                for (var eachProduct in productList)
-                  ProductCart(eachProduct: eachProduct)
-              ],
-            );
-          },
+        backgroundColor: const Color.fromARGB(255, 7, 42, 54),
+        elevation: 0,
+        title: const Text(
+          'Edit Products',
+          style: TextStyle(
+            fontSize: 24,
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFCD8B4),
+          ),
+        ),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.chevron_left, color: Color(0xFFFCD8B4), size: 35),
         ),
       ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: products.collection('Products').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          final productList = snapshot.data!.docs;
+
+          if (productList.isEmpty) {
+            return const Center(child: Text('No Products uploaded yet.',style: TextStyle(
+              fontSize: 16,
+              color: Color(0xFFFCD8B4),
+              fontFamily: 'Poppins',
+            ),));
+          }
+
+          return MasonryGridView.count(
+            crossAxisCount: 2,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            itemCount: productList.length,
+            itemBuilder: (context, index) {
+              final product = productList[index];
+              return ProductCart(eachProduct: product);
+            },
+          );
+        },
+      ),
+
       floatingActionButton: MyButton(
-        color: const Color.fromARGB(255, 0, 97, 15),
-        
+        color: Color(0xFFFCD8B4),
+
         onPressed: () {
           ProductMethod.addProduct(context, widget.uniqueId);
         },
-        text: "+ Add Product ",
+        text: "Add Product ",
+        icon: Icons.add,
+        textcolor: const Color.fromARGB(255, 62, 38, 36),
+        iconColor: const Color.fromARGB(255, 62, 38, 36) ,
       ),
     );
   }

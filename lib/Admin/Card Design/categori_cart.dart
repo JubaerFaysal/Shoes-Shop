@@ -14,109 +14,156 @@ class CategoriCart extends StatelessWidget {
     final name = productCategory['name'];
     final description = productCategory['description'];
     final uniqueId = productCategory['id'];
-    return Container(
-      height: 200,
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 209, 255, 254),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.green, width: 2),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(12),
-              topLeft: Radius.circular(12),
-            ),
+
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(
+            top: 40,
+            left: 70,
+            right: 15,
+            bottom: 15,
+          ),
+          height: 130,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 13, 105, 135),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFFFCD8B4),
+                blurRadius: 4,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          left: 15,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
             child: Image.network(
               imageUrl,
-              height: 200,
-              width: 200,
-              fit: BoxFit.fill,
+              height: 180,
+              width: 180,
+              fit: BoxFit.cover,
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+        ),
+        Positioned(
+          left: 210,
+          top: 55,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 name,
                 style: const TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 8, 174, 14),
+                  fontFamily: 'Poppins',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFFFCD8B4),
                 ),
               ),
-              Text(description),
-              const SizedBox(height: 10),
-              MyButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductsView(uniqueId: uniqueId),
-                    ),
-                  );
-                },
-                text: "Visite",
-                color: const Color.fromARGB(255, 8, 174, 14),
+              const SizedBox(height: 4),
+              Text(
+                description,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                  color: Colors.white70,
+                ),
               ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MyButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductsView(uniqueId: uniqueId),
+                        ),
+                      );
+                    },
+                    icon: Icons.remove_red_eye,
+                    text: "Visit",
+                    width: 120,
+                    height: 40,
+                    fontsize: 14,
+                    color: const Color(0xFFFCD8B4),
+                    iconColor: const Color(0xFF35281C),
+                    textcolor: const Color(0xFF35281C),
+                    buttonBlur: 0.4,
+                  ),
+                   IconButton(
+                    tooltip: "Delete Category",
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder:
+                            (context) => AlertDialog(
+                              title: const Text(
+                                'Delete Product',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 8, 174, 14),
+                                ),
+                              ),
+                              content: const Text("Are you sure?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 8, 174, 14),
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    CategoryMethod.deleteProductCategory(
+                                      uniqueId,
+                                    );
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    'Delete',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 8, 174, 14),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                      );
+                    },
+                    icon: const Icon(
+                      
+                      Icons.delete,
+                      color: Colors.deepOrange,
+                      size: 30,
+                    ),
+                  ),
+                ],
+              ),
+             
             ],
           ),
-          IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      title: const Text(
-                        'Delete Product',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 8, 174, 14),
-                        ),
-                      ),
-                      content: const Text("Are you sure?"),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 8, 174, 14),
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            CategoryMethod.deleteProductCategory(uniqueId);
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            'Delete',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 8, 174, 14),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-              );
-            },
-            icon: const Icon(
-              Icons.delete,
-              color: Color.fromARGB(255, 198, 36, 24),
-              size: 30,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
+
+

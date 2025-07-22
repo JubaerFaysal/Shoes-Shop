@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_business/Admin/screen/product_details.dart';
+import 'package:shoes_business/components/my_button.dart';
 
 class ProductCart extends StatelessWidget {
   final DocumentSnapshot eachProduct;
@@ -8,79 +9,101 @@ class ProductCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetails(eachproduct: eachProduct,),
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          margin: const EdgeInsets.only(top: 95),
+          height: 240,
+          // width: 260,
+          decoration: BoxDecoration(
+            // gradient: LinearGradient(
+            //   colors: [const Color.fromARGB(255, 236, 251, 251), Colors.teal.shade200],
+            //   begin: Alignment.topLeft,
+            //   end: Alignment.bottomRight,
+            // ),
+            color: Color.fromARGB(255, 13, 105, 135),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xFFFCD8B4),
+                blurRadius: 2,
+                offset: const Offset(0, 3),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(16),
           ),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: const Color.fromARGB(255, 255, 255, 255),
-            width: 1.5,
-          ),
-          color: const Color.fromARGB(255, 255, 255, 255),
-          borderRadius: BorderRadius.circular(15),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15),
+            Hero(
+              tag: eachProduct['imageUrl'],
               child: Image.network(
                 eachProduct['imageUrl'],
-                height: 200,
-                width: 200,
-                fit: BoxFit.fill,
+                //  height: 200,
+                //  width: 180,
+                fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 7),
+            const SizedBox(height: 10),
             Text(
               eachProduct['name'],
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 17,
-                color: Colors.green,
+                fontFamily: 'Poppins',
+                color: Color(0xFFFCD8B4),
               ),
             ),
-            const SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Click for Details",
+                    "Price:",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 17,
-                      color: Colors.green,
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFFCD8B4),
                     ),
                   ),
-
-                  Container(
-                    width: 35,
-                    height: 30,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color.fromARGB(255, 26, 48, 96),
-                    ),
-                    child: const Icon(
-                      Icons.ads_click,
-                      color: Colors.white,
-                      size: 25,
+                  Text(
+                    "${eachProduct['price']} ৳",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFFCD8B4),
                     ),
                   ),
                 ],
               ),
             ),
+            SizedBox(height: 10),
+            MyButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 800),
+                    pageBuilder:
+                        (_, __, ___) => ProductDetails(
+                          eachproduct: eachProduct,
+                          
+                        ),
+                  ),
+                );
+              },
+              text: "View details",
+              color: Color(0xFFFCD8B4),
+              iconColor: Color(0xFF35281C),
+              textcolor: Color(0xFF35281C),
+              icon: Icons.remove_red_eye,
+            ),
           ],
         ),
-      ),
+      ],
     );
   }
 }

@@ -12,7 +12,7 @@ class SplashProvider extends ChangeNotifier {
     const durationPerLetter = Duration(milliseconds: 120);
     for (int i = 0; i < text.length; i++) {
       Future.delayed(durationPerLetter * i, () {
-        welcomeAnimatedLetters.add(AnimatedLetter(char: text[i]));
+        welcomeAnimatedLetters.add(AnimatedLetter(char: text[i],));
         notifyListeners();
 
         if (i == text.length - 1) {
@@ -36,14 +36,15 @@ class SplashProvider extends ChangeNotifier {
     }
   }
 
- void setShowIconAndText() {
-    _showIconAndText = true;
-    notifyListeners();
-  }
-  void reset() {
+   void reset() {
     welcomeAnimatedLetters.clear();
     shopAnimatedLetters.clear();
     _showIconAndText = false;
+    notifyListeners();
+  }
+
+ void setShowIconAndText() {
+    _showIconAndText = true;
     notifyListeners();
   }
 

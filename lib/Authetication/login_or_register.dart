@@ -3,9 +3,6 @@ import 'package:shoes_business/Authetication/login.dart';
 import 'package:shoes_business/Authetication/register.dart';
 
 
-
-
-
 class LoginOrRegister extends StatefulWidget {
   const LoginOrRegister({super.key});
 

@@ -92,7 +92,7 @@ Widget build(BuildContext context) {
               children: [
                 Hero(
                   tag: 'shoeHero',
-                  child: Image.asset('assets/images/high-heel-2.png', height: 160),
+                  child: Image.asset('assets/images/high-heel-4.png', height: 160),
                 ),
                 const SizedBox(height: 16),
                 const Text(
@@ -175,7 +175,7 @@ Widget build(BuildContext context) {
                       MyButton(
                         text: "Sign Up",
                         width: 320,
-                        color: const Color(0xFFD5A983),
+                        color: const Color.fromARGB(255, 252, 198, 151),
                         fontsize: 17,
                         icon: Icons.person_add,
                         iconColor: const Color(0xFF35281C),

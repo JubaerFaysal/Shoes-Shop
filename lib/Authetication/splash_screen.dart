@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_business/Provider/splash_provider.dart';
 import 'package:shoes_business/components/my_button.dart';
-import 'login_or_register.dart'; // Replace with your actual screen
+import 'login_or_register.dart'; 
 
 class ShoeSplashScreen extends StatefulWidget {
   const ShoeSplashScreen({super.key});
@@ -18,8 +18,8 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
   late Animation<double> _welcomeFontSize;
 
   late AnimationController _iconController;
-  late Animation<Offset> _iconSlideAnimation;
-  late Animation<double> _iconRotation;
+  // late Animation<Offset> _iconSlideAnimation;
+  // late Animation<double> _iconRotation;
 
   late AnimationController _buttonController;
   late Animation<Offset> _buttonSlide;
@@ -28,7 +28,7 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
   late Animation<double> _fadeAnimation;
 
   final String welcomeText = "Welcome";
-  final String shopText = "Shoe Shop";
+  final String shopText = "Shoe Shop Fq";
 
   @override
   void initState() {
@@ -64,14 +64,14 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
       duration: const Duration(milliseconds: 1600),
     );
 
-    _iconSlideAnimation = Tween<Offset>(
-      begin: const Offset(-1.5, 0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _iconController, curve: Curves.easeOut));
+    // _iconSlideAnimation = Tween<Offset>(
+    //   begin: const Offset(-1.5, 0),
+    //   end: Offset.zero,
+    // ).animate(CurvedAnimation(parent: _iconController, curve: Curves.easeOut));
 
-    _iconRotation = Tween<double>(begin: -0.5, end: 0).animate(
-      CurvedAnimation(parent: _iconController, curve: Curves.easeOutBack),
-    );
+    // _iconRotation = Tween<double>(begin: -0.5, end: 0).animate(
+    //   CurvedAnimation(parent: _iconController, curve: Curves.easeOutBack),
+    // );
 
     _iconController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -96,6 +96,7 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
 
   void _startWelcomeTyping() {
     final provider = Provider.of<SplashProvider>(context, listen: false);
+    provider.reset();
     provider.startWelcomeTyping(welcomeText, () {
       _welcomeController.forward().whenComplete(() {
         provider.setShowIconAndText();
@@ -162,7 +163,7 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
                   child: Hero(
                     tag: 'shoeHero',
                     child: Image.asset(
-                      'assets/images/002-high-heel-1.png',
+                      'assets/images/high-heel-4.png',
                       height: 150,
                     ),
                   ),
@@ -182,18 +183,18 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SlideTransition(
-                        position: _iconSlideAnimation,
-                        child: RotationTransition(
-                          turns: _iconRotation,
-                          child: Image.asset(
-                            'assets/images/tennis-shoe-icon-56.png',
-                            height: 50,
-                            width: 50,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
+                      // SlideTransition(
+                      //   position: _iconSlideAnimation,
+                      //   child: RotationTransition(
+                      //     turns: _iconRotation,
+                      //     child: Image.asset(
+                      //       'assets/images/tennis-shoe-icon-56.png',
+                      //       height: 50,
+                      //       width: 50,
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(width: 12),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: provider.shopAnimatedLetters,
@@ -218,8 +219,6 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
                 ),
                 child: MyButton(
                   onPressed: () {
-                     // Reset state before navigating away
-                    Provider.of<SplashProvider>(context, listen: false).reset();
                     Navigator.push(
                       context,
                       PageRouteBuilder(
@@ -231,7 +230,7 @@ class _ShoeSplashScreenState extends State<ShoeSplashScreen>
                   text: 'Start Shopping!',
                   width: double.infinity,
                   height: 60,
-                  color: const Color(0xFFD5A983),
+                  color: const Color.fromARGB(255, 255, 208, 160),
                   textcolor: const Color.fromARGB(255, 53, 40, 28),
                   icon: Icons.shopify,
                   iconColor: const Color.fromARGB(255, 53, 40, 28),

@@ -363,7 +363,7 @@ class _MyCartPageState extends State<MyCartPage> {
                               .doc(productId);
 
                           batch.update(productRef, {
-                            'Stock': FieldValue.increment(-quantity),
+                            'stock': FieldValue.increment(-quantity),
                           });
                         }
 

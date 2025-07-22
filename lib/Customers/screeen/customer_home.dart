@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shoes_business/Customers/Card%20design/category.dart';
 import 'package:shoes_business/Customers/screeen/customer_drawer.dart';
 import 'package:shoes_business/Customers/screeen/my_cart.dart';
+import 'package:shoes_business/Provider/cart_provider.dart';
 
 class CustomerHome extends StatefulWidget {
   const CustomerHome({super.key});
@@ -40,18 +42,51 @@ class _CustomerHomeState extends State<CustomerHome> {
               ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => MyCartPage()),
+          Consumer<CartProvider>(
+            builder: (context, cartProvider, _) {
+              return Stack(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => MyCartPage()),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.shopping_cart,
+                      size: 28,
+                      color: Color(0xFFFCD8B4),
+                    ),
+                  ),
+                  if (cartProvider.cartItemCount > 0)
+                    Positioned(
+                      right: 6,
+                      top: 4,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.deepOrange,
+                          shape: BoxShape.circle,
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 20,
+                          minHeight: 20,
+                        ),
+                        child: Text(
+                          '${cartProvider.cartItemCount}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
               );
             },
-            icon: const Icon(
-              Icons.shopping_cart,
-              size: 28,
-              color: Color(0xFFFCD8B4),
-            ),
           ),
         ],
       ),

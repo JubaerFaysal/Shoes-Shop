@@ -23,20 +23,20 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
-  @override
-  void initState() {
-    super.initState();
-    _fadeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    );
-    _fadeAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeIn));
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _fadeController = AnimationController(
+  //     vsync: this,
+  //     duration: const Duration(milliseconds: 1000),
+  //   );
+  //   _fadeAnimation = Tween<double>(
+  //     begin: 0,
+  //     end: 1,
+  //   ).animate(CurvedAnimation(parent: _fadeController, curve: Curves.easeIn));
 
-    _fadeController.forward();
-  }
+  //   _fadeController.forward();
+  // }
 
   void login() async {
     showDialog(context: context, builder: (context) => const MyDialogBox());
@@ -57,7 +57,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
-    _fadeController.dispose();
+   // _fadeController.dispose();
     email.dispose();
     password.dispose();
     super.dispose();
@@ -71,106 +71,103 @@ Widget build(BuildContext context) {
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: Column(
-              children: [
-                Hero(
-                  tag: 'shoeHero',
-                  child: Image.asset('assets/images/002-high-heel-1.png', height: 160),
+          child: Column(
+            children: [
+              Hero(
+                tag: 'shoeHero',
+                child: Image.asset('assets/images/high-heel-4.png', height: 160),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                "Happy to See You",
+                style: TextStyle(
+                  fontSize: 44,
+                  fontFamily: 'Yesteryear',
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFFFCD8B4),
+                  letterSpacing: 1,
                 ),
-                const SizedBox(height: 16),
-                const Text(
-                  "Happy to See You",
-                  style: TextStyle(
-                    fontSize: 44,
-                    fontFamily: 'Yesteryear',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFFFCD8B4),
-                    letterSpacing: 1,
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      MyTextForm(
-                        labeltext: "Email",
-                        controller: email,
-                        obscureText: false,
-                        icon: const Icon(Icons.mail, color: Color(0xFFFCD8B4),
-                          ),
-                      ),
-                      const SizedBox(height: 16),
-                      MyTextForm(
-                        labeltext: "Password",
-                        controller: password,
-                        obscureText: true,
-                        icon: const Icon(Icons.lock, color: Color(0xFFFCD8B4),
-                          ),
-                      ),
-                      const SizedBox(height: 8),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(onPressed: (){}, child: Text("Forgot Password?",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 255, 196, 138),
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )),
-                      ),
-                      //const SizedBox(height: 8),
-                      MyButton(
-                        text: "Login",
-                        width: 320,
-                        
-                        color: const Color(0xFFD5A983),
-                        fontsize: 17,
-                        icon: Icons.login,
-                        textcolor: const Color(0xFF35281C),
-                        iconColor: const Color(0xFF35281C),
-                        buttonBlur: 0.6,
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            login();
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              const SizedBox(height: 25),
+              Form(
+                key: formKey,
+                child: Column(
                   children: [
-                    Text(
-                      "Don't have an account?",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w300,
-                        color: Colors.grey[400],
-                      ),
+                    MyTextForm(
+                      labeltext: "Email",
+                      controller: email,
+                      obscureText: false,
+                      icon: const Icon(Icons.mail, color: Color(0xFFFCD8B4),
+                        ),
                     ),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: const Text(
-                        " Register Now",
+                    const SizedBox(height: 16),
+                    MyTextForm(
+                      labeltext: "Password",
+                      controller: password,
+                      obscureText: true,
+                      icon: const Icon(Icons.lock, color: Color(0xFFFCD8B4),
+                        ),
+                    ),
+                    const SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(onPressed: (){}, child: Text("Forgot Password?",
                         style: TextStyle(
+                          color: Color.fromARGB(255, 255, 196, 138),
                           fontSize: 16,
                           fontFamily: 'Poppins',
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFFCD8B4),
+                          fontWeight: FontWeight.w600,
                         ),
-                      ),
+                      )),
+                    ),
+                    //const SizedBox(height: 8),
+                    MyButton(
+                      text: "Login",
+                      width: 320,
+                      
+                      color: const Color.fromARGB(255, 252, 198, 151),
+                      fontsize: 17,
+                      icon: Icons.login,
+                      textcolor: const Color(0xFF35281C),
+                      iconColor: const Color(0xFF35281C),
+                      buttonBlur: 0.6,
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          login();
+                        }
+                      },
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account?",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w300,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: const Text(
+                      " Register Now",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFCD8B4),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

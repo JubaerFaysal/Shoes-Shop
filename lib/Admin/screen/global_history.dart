@@ -18,17 +18,22 @@ class AllCustomerHistory extends StatelessWidget {
         .orderBy('timestamp', descending: true);
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 7, 42, 54),
       appBar: AppBar(
-        backgroundColor: Colors.teal.shade600,
+        backgroundColor: const Color.fromARGB(255, 7, 42, 54),
         title: Text(
           'All Customers History',
-          style: const TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w200,
-                          color: Colors.deepOrangeAccent,
-                        ),
+            style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFFCD8B4),
+          ),
           
+        ),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(Icons.chevron_left, color: Color(0xFFFCD8B4), size: 35),
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -57,6 +62,7 @@ class AllCustomerHistory extends StatelessWidget {
                   final phoneNumber = phoneSnapshot.data ?? 'Loading...';
 
                   return Card(
+                    color: const Color.fromARGB(255, 13, 105, 135),
                     margin: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 10,
@@ -112,15 +118,19 @@ class AllCustomerHistory extends StatelessWidget {
                         ),
                         title: Text(
                           data['productName'] ?? 'Unknown Product',
-                          style: const TextStyle(
-                            fontSize: 16,
+                         style: TextStyle(
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w200,
-                            color: Colors.deepOrangeAccent,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFFCD8B4),
                           ),
                         ),
                         subtitle: Text(
-                          "₹ ${data['price']} x ${data['quantity']} \nPhone: $phoneNumber",
+                          "৳ ${data['price']} x ${data['quantity']} \nPhone: $phoneNumber",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFFCD8B4),
+                          ),
                         ),
                         isThreeLine: true,
                         trailing: ElevatedButton(
@@ -135,7 +145,7 @@ class AllCustomerHistory extends StatelessWidget {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red.shade600,
+                            backgroundColor: Colors.deepOrange,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 12,
                               vertical: 4,

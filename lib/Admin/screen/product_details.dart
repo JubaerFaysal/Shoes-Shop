@@ -22,6 +22,7 @@ class ProductDetails extends StatelessWidget {
             : 'Unknown';
 
     return Scaffold(
+    backgroundColor:   const Color.fromARGB(255, 7, 42, 54),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 14),
@@ -31,10 +32,10 @@ class ProductDetails extends StatelessWidget {
               Text(
                 "Details for ${eachproduct['name']}",
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
                   fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w200,
-                  color: Colors.deepOrangeAccent,
+                  fontWeight: FontWeight.w300,
+                  color: Color(0xFFFCD8B4),
                 ),
               ),
               const SizedBox(height: 16),
@@ -49,17 +50,17 @@ class ProductDetails extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                "Enjoy your shopping with FQ's.\nTailor's App makes our shopping easy and peaceful.",
+                "Enjoy your shopping with FQ's.\nShoe's App makes your shopping easy and peaceful.",
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 16,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w200,
-                  color: Colors.deepOrangeAccent,
+                  color: Color(0xFFFCD8B4),
                 ),
               ),
               const SizedBox(height: 20),
-              Divider(color: Colors.teal.shade300),
+              Divider(color: Color(0xFFFCD8B4)),
               const SizedBox(height: 10),
 
               Row(
@@ -94,7 +95,7 @@ class ProductDetails extends StatelessWidget {
                       fontSize: 16,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
-                      color: Colors.teal.shade800,
+                      color: Color.fromARGB(255, 255, 204, 153),
                     ),
                   ),
                 ),
@@ -112,7 +113,7 @@ class ProductDetails extends StatelessWidget {
                               fontSize: 14,
                             ),
                           ),
-                          backgroundColor: Colors.teal.shade100,
+                          backgroundColor: Color.fromARGB(255, 255, 223, 191),
                         );
                       }).toList(),
                 ),
@@ -125,7 +126,7 @@ class ProductDetails extends StatelessWidget {
                   horizontal: 20,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.teal.shade700,
+                  color: Color(0xFFFCD8B4),
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Row(
@@ -134,7 +135,7 @@ class ProductDetails extends StatelessWidget {
                     Text(
                       "Price:",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 73, 58, 58),
                         fontSize: 18,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
@@ -143,7 +144,7 @@ class ProductDetails extends StatelessWidget {
                     Text(
                       "₹ ${eachproduct['price']}",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 64, 44, 44),
                         fontSize: 22,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.bold,
@@ -157,183 +158,177 @@ class ProductDetails extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          TextEditingController nameController =
-                              TextEditingController(text: eachproduct['name']);
-                          TextEditingController priceController =
-                              TextEditingController(text: eachproduct['price'].toString());
-                          TextEditingController stockController =
-                              TextEditingController(
-                                text: eachproduct['stock'].toString(),
-                              );
-                          TextEditingController brandController =
-                              TextEditingController(text: eachproduct['brand']);
-                          TextEditingController weightcontroller =
-                              TextEditingController(
-                                text: eachproduct['weight'],
-                              );
-
-                          return AlertDialog(
-                            backgroundColor: const Color(0xFFE6F5F4),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            title: Center(
-                              child: Text(
-                                "Update Product",
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.teal[800],
+                  Expanded(
+                    child: MyButton(
+                      text: 'Modify',
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            TextEditingController nameController =
+                                TextEditingController(text: eachproduct['name']);
+                            TextEditingController priceController =
+                                TextEditingController(text: eachproduct['price'].toString());
+                            TextEditingController stockController =
+                                TextEditingController(
+                                  text: eachproduct['stock'].toString(),
+                                );
+                            TextEditingController brandController =
+                                TextEditingController(text: eachproduct['brand']);
+                            TextEditingController weightcontroller =
+                                TextEditingController(
+                                  text: eachproduct['weight'],
+                                );
+                    
+                            return AlertDialog(
+                              backgroundColor: const Color.fromARGB(
+                                255,
+                                7,
+                                42,
+                                54,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              title: Center(
+                                child: Text(
+                                  "Update Product",
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFFCD8B4),
+                                  ),
                                 ),
                               ),
-                            ),
-                            content: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  _buildStyledTextField(
-                                    controller: nameController,
-                                    label: "Product Name",
-                                    // hint:
-                                    //     "Was: ${product['Product']}",
-                                    icon: Icons.edit,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  _buildStyledTextField(
-                                    controller: priceController,
-                                    label: "Price",
-                                    // hint:
-                                    //     "Was: ₹ ${product['Price']}",
-                                    icon: Icons.attach_money,
-                                    keyboardType: TextInputType.number,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  _buildStyledTextField(
-                                    controller: brandController,
-                                    label: "Brand",
-                                    // hint:
-                                    //     "Was: ₹ ${product['Brand']}",
-                                    icon: Icons.label_important,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  _buildStyledTextField(
-                                    controller: weightcontroller,
-                                    label: "Weight",
-                                    // hint:
-                                    //     "Was: ₹ ${product['Size']}",
-                                    icon: Icons.format_size,
-                                    keyboardType: TextInputType.number,
-                                  ),
-                                  const SizedBox(height: 12),
-                                  _buildStyledTextField(
-                                    controller: stockController,
-                                    label: "Stock",
-                                    // hint:
-                                    //     "Was: ₹ ${product['Stock']}",
-                                    icon: Icons.store,
-                                    keyboardType: TextInputType.number,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actionsPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
-                            ),
-                            actions: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ElevatedButton.icon(
-                                    onPressed: () => Navigator.pop(context),
-                                    icon: const Icon(Icons.cancel),
-                                    label: const Text("Cancel"),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.teal.shade100,
-                                      foregroundColor: Colors.teal.shade900,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _buildStyledTextField(
+                                      controller: nameController,
+                                      label: "Product Name",
+                                      // hint:
+                                      //     "Was: ${product['Product']}",
+                                      icon: Icons.edit,
                                     ),
-                                  ),
-                                  ElevatedButton.icon(
-                                    onPressed: () async {
-                                      final name = nameController.text.trim();
-                                      final brand = brandController.text.trim();
-                                      final weight =
-                                          weightcontroller.text.trim();
-                                      final priceText =
-                                          priceController.text.trim();
-                                      final stockText =
-                                          stockController.text.trim();
-                                      try {
-                                        final double price = double.parse(
-                                          priceText,
-                                        );
-                                        final int stock = int.parse(stockText);
-                                        await eachproduct.reference.update({
-                                          'name': name,
-                                          'brand': brand,
-                                          'weight': weight,
-                                          'price': price,
-                                          'stock': stock,
-                                          'timestamp':
-                                              FieldValue.serverTimestamp(),
-                                        });
-                                        Navigator.pop(context);
-                                      } catch (e) {
-                                        myAleartDialog(
-                                          "Unable to Update",
-                                          context,
-                                        );
-                                      }
-                                    },
-                                    icon: const Icon(Icons.save),
-                                    label: const Text("Update"),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.teal,
-                                      foregroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
+                                    const SizedBox(height: 12),
+                                    _buildStyledTextField(
+                                      controller: priceController,
+                                      label: "Price",
+                                      // hint:
+                                      //     "Was: ₹ ${product['Price']}",
+                                      icon: Icons.attach_money,
+                                      keyboardType: TextInputType.number,
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(height: 12),
+                                    _buildStyledTextField(
+                                      controller: brandController,
+                                      label: "Brand",
+                                      // hint:
+                                      //     "Was: ₹ ${product['Brand']}",
+                                      icon: Icons.label_important,
+                                    ),
+                                    const SizedBox(height: 12),
+                                    _buildStyledTextField(
+                                      controller: weightcontroller,
+                                      label: "Weight",
+                                      // hint:
+                                      //     "Was: ₹ ${product['Size']}",
+                                      icon: Icons.format_size,
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                    const SizedBox(height: 12),
+                                    _buildStyledTextField(
+                                      controller: stockController,
+                                      label: "Stock",
+                                      // hint:
+                                      //     "Was: ₹ ${product['Stock']}",
+                                      icon: Icons.store,
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.edit),
-                    label: Text("Modify", style: TextStyle(fontFamily: 'Poppins')),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF3498DB),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
+                              actionsPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 12,
+                              ),
+                              actions: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    MyButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      icon: Icons.cancel,
+                                      text: "Cancel",
+                                      color: Color(0xFFFCD8B4),
+                                      textcolor: const Color.fromARGB(255, 40, 20, 20),
+                                     iconColor: const Color.fromARGB(255, 40, 20, 20),
+                                    ),
+                                    MyButton(
+                                      onPressed: () async {
+                                        final name = nameController.text.trim();
+                                        final brand = brandController.text.trim();
+                                        final weight =
+                                            weightcontroller.text.trim();
+                                        final priceText =
+                                            priceController.text.trim();
+                                        final stockText =
+                                            stockController.text.trim();
+                                        try {
+                                          final double price = double.parse(
+                                            priceText,
+                                          );
+                                          final int stock = int.parse(stockText);
+                                          await eachproduct.reference.update({
+                                            'name': name,
+                                            'brand': brand,
+                                            'weight': weight,
+                                            'price': price,
+                                            'stock': stock,
+                                            'timestamp':
+                                                FieldValue.serverTimestamp(),
+                                          });
+                                          Navigator.pop(context);
+                                        } catch (e) {
+                                          myAleartDialog(
+                                            "Unable to Update",
+                                            context,
+                                          );
+                                        }
+                                      },
+                                      icon: Icons.save,
+                                      text: "Update",
+                                      color: Colors.teal,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      icon: Icons.edit,
+                     color: Colors.blue,
+                      iconColor: Colors.white,
+                      textcolor: Colors.white,
+                      fontsize: 16,
                     ),
                   ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      deleteAlert(eachproduct, context);
-                    },
-                    icon: const Icon(Icons.delete),
-                    label: Text("Delete", style: TextStyle(fontFamily: 'Poppins')),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepOrangeAccent,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
+                  SizedBox(width: 10,),
+                  Expanded(
+                    child: MyButton(
+                      onPressed: () {
+                        deleteAlert(eachproduct, context);
+                      },
+                      icon:  Icons.delete,
+                      text: 'Delete ',
+                     color: Colors.deepOrange,
+                      iconColor: Colors.white,
+                      textcolor: Colors.white,
+                      fontsize: 16,
                     ),
                   ),
                 ],
@@ -346,7 +341,7 @@ class ProductDetails extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pop(),
                 icon: Icons.close,
 
-                color: Colors.redAccent,
+                color: Colors.red,
                 textcolor: Colors.white,
               ),
             ],
@@ -359,11 +354,12 @@ class ProductDetails extends StatelessWidget {
   Widget _buildInfoTile(IconData icon, String label, String value) {
     return Column(
       children: [
-        Icon(icon, color: Colors.teal, size: 30),
+        Icon(icon, color: const Color.fromARGB(255, 13, 105, 135), size: 30),
         const SizedBox(height: 6),
         Text(
           label,
-          style: TextStyle(fontFamily: 'Poppins',fontSize: 12, fontWeight: FontWeight.w600),
+          style: TextStyle(fontFamily: 'Poppins',fontSize: 12, fontWeight: FontWeight.w600,color: Color(0xFFFCD8B4),
+          ),
         ),
         Text(
           value,
@@ -371,7 +367,7 @@ class ProductDetails extends StatelessWidget {
             fontSize: 13,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
-            color: Colors.grey[800],
+            color: Color(0xFFFCD8B4),
           ),
         ),
       ],
@@ -389,22 +385,22 @@ class ProductDetails extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.teal),
+        prefixIcon: Icon(icon, color: Color(0xFFFCD8B4)),
         labelText: label,
-        hintStyle: TextStyle(color: Colors.teal.shade300),
-        labelStyle: TextStyle(color: Colors.teal.shade700),
+        hintStyle: TextStyle(color: Color(0xFFFCD8B4)),
+        labelStyle: TextStyle(color: Color(0xFFFCD8B4)),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: const Color.fromARGB(255, 7, 42, 54),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.teal.shade200),
+          borderSide: BorderSide(color: Color.fromARGB(255, 157, 133, 109)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.teal, width: 2),
+          borderSide: const BorderSide(color: Color(0xFFFCD8B4), width: 2),
         ),
       ),
-      style: TextStyle(fontFamily: 'Poppins',color: Colors.black87),
+      style: TextStyle(fontFamily: 'Poppins',color: Color(0xFFFCD8B4)),
     );
   }
 }

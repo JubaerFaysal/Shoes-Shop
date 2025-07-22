@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shoes_business/components/my_button.dart';
 
 void deleteAlert(DocumentSnapshot eachItem, BuildContext context) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 7, 42, 54),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -16,7 +17,7 @@ void deleteAlert(DocumentSnapshot eachItem, BuildContext context) {
             fontSize: 18,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.bold,
-            color: Colors.teal.shade700,
+            color: Color(0xFFFCD8B4),
           ),
         ),
       ),
@@ -32,7 +33,7 @@ void deleteAlert(DocumentSnapshot eachItem, BuildContext context) {
               fontFamily: 'Poppins',
               fontSize: 16,
               fontWeight: FontWeight.w500,
-              color: Colors.grey.shade800,
+              color: Color(0xFFFCD8B4),
             ),
           ),
         ],
@@ -40,34 +41,24 @@ void deleteAlert(DocumentSnapshot eachItem, BuildContext context) {
       actionsPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
-        ElevatedButton.icon(
+        MyButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.cancel, size: 18),
-          label: const Text("Cancel"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey.shade300,
-            foregroundColor: Colors.black87,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
+          icon: Icons.cancel, 
+          text:  "Cancel",
+          textcolor: const Color.fromARGB(255, 51, 32, 30),
+          iconColor: const Color.fromARGB(255, 51, 32, 30),
+         color: Color(0xFFFCD8B4),
         ),
-        ElevatedButton.icon(
+        MyButton(
           onPressed: () {
             eachItem.reference.delete();
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.delete_forever, size: 18),
-          label: const Text("Delete"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.teal.shade700,
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
+          icon: Icons.delete_forever, 
+          text: "Delete",
+        color: Colors.redAccent,
         ),
       ],
     ),
