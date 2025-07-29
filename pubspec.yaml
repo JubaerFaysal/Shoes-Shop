@@ -59,6 +59,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/svg/
+    - screenshot/
 
 
   # example:

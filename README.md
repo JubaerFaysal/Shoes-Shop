@@ -1,16 +1,68 @@
-# shoes_business
+# 👟 Shoes Shop – Flutter E-Commerce App
 
-A new Flutter project.
+A fully functional and beautifully designed **online shoe store** application built using **Flutter** and **Firebase**. The app allows users to browse and shop shoes with real-time updates. It includes a **Customer Panel** (shown in demo) and a separate **Admin Panel** for managing categories, products, and orders.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## 🧑‍💼 Admin Panel Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 🔐 Admin Authentication
+- ➕ Add Product Categories
+- ➕ Add Products under Categories
+- ✏️ Full CRUD Operations on Products
+- 📦 Manage Customer Orders
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## 🛍️ Customer Panel Features
+
+- 🔐 User Authentication (Sign up / Login)
+- 🏷️ Browse Products by Category
+- 📄 View Product Details
+- 🛒 Add to Cart / Remove from Cart
+- 📦 Place Orders
+- 📜 View Order History
+- 👤 User Profile
+- 🔄 Real-time Database Updates
+
+## ScreenShot
+![Splash Screen](screenshot/splash_screen.png)
+![Login ](screenshot/login.png) 
+![Registration ](screenshot/registration.png) 
+![Categories Screen](screenshot/categories.png) 
+![Drawer ](screenshot/drawer.png) 
+![Product Screen](screenshot/products.png) 
+![product details](screenshot/p_details.png) 
+![admin product details](screenshot/admin_product.png) 
+![customer history](screenshot/customer_history.png) 
+![Add Category](screenshot/add_category.png) 
+![Payment ](screenshot/Payment.png) 
+![My Cart ](screenshot/Cart.png) 
+
+
+## 🛠️ Tech Stack
+
+| Component                 | Technology                  |
+|---------------------------|---------------------------  |
+| **Framework**             | Flutter                     |
+| **Programming Language**  | Dart                        |
+| **Backend / DB**          | Firebase (Firestore & Auth) |
+| **Image Hosting**         | Cloudinary                  |
+| **State Management**      | Provider                    |
+| **Storage**               | Firebase Storage (optional for assets)
+
+
+
+---
+
+## ⚙️ Setup Instructions
+
+Follow the steps below to set up and run the app locally:
+
+### 🧪 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/JubaerFaysal/Shoes-Shop.git
+   cd Shoes-Shop
+
+
